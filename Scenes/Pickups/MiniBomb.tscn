@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Pickups/PickupBase.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Pickups/MiniBomb.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11, 10 )
+
+[node name="MiniBomb" type="Area2D" groups=["Items"]]
+script = ExtResource( 1 )
+pickup_type = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.6875, 0.666667 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
