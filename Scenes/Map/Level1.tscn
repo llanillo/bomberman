@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/UI/GameUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/System/GameManager.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Environment/DestructibleBrick.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Environment/Destroy_Animation/Brick_destroy0.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Environment/indestructibleBrick.png" type="Texture" id=5]
+[ext_resource path="res://Fonts/ARCADE_R.TTF" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=4]
+size = 72
+font_data = ExtResource( 6 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -31,7 +36,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
-1/name = "DestructibleBrick.png 1"
+1/name = "Brick_destroy0.png 1"
 1/texture = ExtResource( 4 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -58,21 +63,34 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="GameUI" parent="." instance=ExtResource( 1 )]
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 1024.0
-margin_bottom = 600.0
+[node name="TimerLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 477.0
+margin_top = 16.0
+margin_right = 547.0
+margin_bottom = 89.0
+custom_colors/font_color = Color( 0.0117647, 0.964706, 0.0196078, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "3"
+align = 1
+valign = 1
 
 [node name="BricksTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 262153, 0, 0, 262166, 0, 0, 327689, 0, 0, 327691, 0, 0, 327693, 0, 0, 327695, 0, 0, 327697, 0, 0, 327699, 0, 0, 327701, 0, 0, 327702, 0, 0, 393225, 0, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 0, 393238, 0, 0, 458761, 0, 0, 458763, 0, 0, 458765, 0, 0, 458766, 1, 0, 458767, 0, 0, 458768, 1, 0, 458769, 0, 0, 458770, 1, 0, 458771, 0, 0, 458773, 0, 0, 458774, 0, 0, 524297, 0, 0, 524302, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524310, 0, 0, 589833, 0, 0, 589835, 0, 0, 589837, 0, 0, 589838, 1, 0, 589839, 0, 0, 589840, 1, 0, 589841, 0, 0, 589843, 0, 0, 589845, 0, 0, 589846, 0, 0, 655369, 0, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655382, 0, 0, 720905, 0, 0, 720907, 0, 0, 720908, 1, 0, 720909, 0, 0, 720910, 1, 0, 720911, 0, 0, 720913, 0, 0, 720915, 0, 0, 720917, 0, 0, 720918, 0, 0, 786441, 0, 0, 786444, 1, 0, 786445, 1, 0, 786446, 1, 0, 786454, 0, 0, 851977, 0, 0, 851979, 0, 0, 851981, 0, 0, 851982, 1, 0, 851983, 0, 0, 851985, 0, 0, 851987, 0, 0, 851989, 0, 0, 851990, 0, 0, 917513, 0, 0, 917526, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0 )
+tile_data = PoolIntArray( 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 262153, 0, 0, 262166, 0, 0, 327689, 0, 0, 327691, 0, 0, 327693, 0, 0, 327695, 0, 0, 327697, 0, 0, 327699, 0, 0, 327701, 0, 0, 327702, 0, 0, 393225, 0, 0, 393238, 0, 0, 458761, 0, 0, 458763, 0, 0, 458765, 0, 0, 458767, 0, 0, 458769, 0, 0, 458771, 0, 0, 458773, 0, 0, 458774, 0, 0, 524297, 0, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524310, 0, 0, 589833, 0, 0, 589835, 0, 0, 589837, 0, 0, 589838, 1, 0, 589839, 0, 0, 589840, 1, 0, 589841, 0, 0, 589843, 0, 0, 589845, 0, 0, 589846, 0, 0, 655369, 0, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655382, 0, 0, 720905, 0, 0, 720907, 0, 0, 720909, 0, 0, 720910, 1, 0, 720911, 0, 0, 720912, 1, 0, 720913, 0, 0, 720915, 0, 0, 720917, 0, 0, 720918, 0, 0, 786441, 0, 0, 786446, 1, 0, 786447, 1, 0, 786448, 1, 0, 786454, 0, 0, 851977, 0, 0, 851979, 0, 0, 851981, 0, 0, 851982, 1, 0, 851983, 0, 0, 851984, 1, 0, 851985, 0, 0, 851987, 0, 0, 851989, 0, 0, 851990, 0, 0, 917513, 0, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917526, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 320, 128 )
+position = Vector2( 320, 449 )
 
 [node name="Player2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 384, 136 )
+position = Vector2( 672, 128 )
 player_type = 1
+
+[node name="StartGameTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="GameUI" parent="." instance=ExtResource( 1 )]
