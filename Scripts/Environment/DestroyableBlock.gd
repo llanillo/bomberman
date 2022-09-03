@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-onready var destroy_timer := $DestroyTimer
+onready var animation_player := $AnimationPlayer
 
 export (int) var time_before_destroy := 1
 export (float) var fire_pickup_chance := 0.10
@@ -9,16 +9,13 @@ export (float) var minibomb_pickup_chance := 0.20 # From range, it is 10% becaus
 export (PackedScene) var fire_pickup_scene := preload("res://Scenes/Pickups/Fire.tscn")
 export (PackedScene) var minibomb_pickup_scene := preload("res://Scenes/Pickups/MiniBomb.tscn")
 
-func _ready():
-	destroy_timer.connect("timeout", self, "on_destroy_timer_timeout")
-	
+
 	
 func destroy_brick() -> void:
-	destroy_timer.start(time_before_destroy)
-	print("destroying...")
+	animation_player.play("destroy")
 	
 
-func on_destroy_timer_timeout () -> void:
+func on_destory_brick_animation_finish () -> void:
 	randomize()
 	var random_value := randf()
 		
@@ -28,10 +25,13 @@ func on_destroy_timer_timeout () -> void:
 		instantiate_pickup(minibomb_pickup_scene)
 	queue_free()
 	
+	
+	
 func instantiate_pickup(object_scene: PackedScene) -> void:	
 	var object_instance = object_scene.instance()	
 	object_instance.global_position = global_position
 	get_tree().root.add_child(object_instance)
+
 
 
 func is_float_in_range(value: float, minimum: float, maximum: float) -> bool:
