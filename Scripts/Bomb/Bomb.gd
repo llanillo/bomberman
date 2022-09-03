@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 
 class_name Bomb
 
@@ -12,7 +12,8 @@ var bomb_duration_time : float
 var explosion_duration_time : float
 var explosion_range : int
 
-onready var destroy_timer = $DestroyTimer
+#onready var ray_array := [$RayUp, $RayDown, $RayLeft, $RayRight]
+onready var destroy_timer := $DestroyTimer
 onready var area2d := $Area2D as Area2D
 onready var rigidbody_collision_shape := $CollisionShape2D as CollisionShape2D
 onready var area2d_collision_shape := $Area2D/CollisionShape2D as CollisionShape2D
@@ -27,13 +28,16 @@ func _ready():
 func on_bomb_timer_timeout() -> void:
 	EventManager.emit_signal("bomb_exploted")
 	
-#	var rigidbody_position = rigidobyd2d.global_position
+	# Stops the rigidbody movement
+#	sleeping = true
+#	global_position = PositionUtil.snap_position_to_grid(global_position)
 	
 	instantiate_explosion(global_position)
 	for direction in direction_array:
-		instantiate_cross_explosion(global_position, direction)
+		instantiate_explosion_line(global_position, direction)
 	
 	queue_free()
+
 
 
 func on_body_exited(body: Node) -> void:	
@@ -42,8 +46,15 @@ func on_body_exited(body: Node) -> void:
 		rigidbody_collision_shape.set_deferred("disabled", false)
 	
 
+func on_bomb_explosion_animation_finished() -> void:
+	pass
+	
+func on_bomb_explosion_animation_almost_finished()-> void:
+	pass
 
-func instantiate_cross_explosion(position: Vector2, direction: Vector2) -> void:
+
+
+func instantiate_explosion_line(position: Vector2, direction: Vector2) -> void:
 	for index in explosion_range:
 		position += direction * GameManager.TileSize
 		
@@ -51,12 +62,13 @@ func instantiate_cross_explosion(position: Vector2, direction: Vector2) -> void:
 				
 		if not tiles_in_position.empty(): 
 			var tile_object = tiles_in_position[0].collider
-			
+
+			if tile_object.is_in_group("UBrick"): return
+
 			if tile_object.is_in_group("DBrick"):
 				tile_object.destroy_brick()
-			
-			return
-			
+				return
+
 		instantiate_explosion(position)
 	
 	
