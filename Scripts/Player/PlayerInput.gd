@@ -5,6 +5,7 @@ class_name PlayerInput
 var player_type
 
 func _input(event):
+	if !GameStatus.can_play : return
 	on_player_attack_input(event)
 	
 func get_player_move_input() -> Vector2:
@@ -25,4 +26,4 @@ func get_player_move_input() -> Vector2:
 	
 func on_player_attack_input(event) -> void:
 	if Input.is_action_just_pressed('player%s_attack' % player_type):
-		EventManager.emit_signal("player_attack", player_type)
+		EventManager.emit_signal("player_attack_input", player_type)
