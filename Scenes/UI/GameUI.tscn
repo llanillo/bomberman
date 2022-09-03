@@ -20,35 +20,14 @@ size = 26
 font_data = ExtResource( 4 )
 
 [node name="GameUI" type="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -512.0
-margin_top = -300.0
-margin_right = 512.0
-margin_bottom = 300.0
-script = ExtResource( 10 )
-
-[node name="Canvas" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="EmptyPanel" type="Panel" parent="Canvas"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 1024.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.6
+script = ExtResource( 10 )
 
 [node name="Player1" type="Panel" parent="."]
 self_modulate = Color( 0.521569, 0, 1, 1 )
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -300.0
-margin_right = 210.0
-margin_bottom = 300.0
+margin_right = 208.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
@@ -58,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="PlayerLabel" type="Label" parent="Player1/VBox"]
-margin_right = 210.0
+margin_right = 208.0
 margin_bottom = 196.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -73,7 +52,7 @@ uppercase = true
 
 [node name="KeysContainer" type="MarginContainer" parent="Player1/VBox"]
 margin_top = 200.0
-margin_right = 210.0
+margin_right = 208.0
 margin_bottom = 330.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -86,7 +65,7 @@ custom_constants/margin_bottom = 20
 [node name="Keys" type="HBoxContainer" parent="Player1/VBox/KeysContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 190.0
+margin_right = 188.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -95,7 +74,7 @@ custom_constants/separation = 1
 alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_right = 56.0
+margin_right = 55.0
 margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -103,7 +82,7 @@ custom_constants/margin_top = 50
 
 [node name="A" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/MarginContainer"]
 margin_top = 50.0
-margin_right = 56.0
+margin_right = 55.0
 margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -111,15 +90,15 @@ texture = ExtResource( 7 )
 expand = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_left = 57.0
-margin_right = 113.0
+margin_left = 56.0
+margin_right = 111.0
 margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="W" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/VBoxContainer"]
-margin_right = 56.0
+margin_right = 55.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -128,7 +107,7 @@ expand = true
 
 [node name="S" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/VBoxContainer"]
 margin_top = 50.0
-margin_right = 56.0
+margin_right = 55.0
 margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -136,8 +115,8 @@ texture = ExtResource( 8 )
 expand = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_left = 114.0
-margin_right = 170.0
+margin_left = 112.0
+margin_right = 168.0
 margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -154,7 +133,7 @@ expand = true
 
 [node name="Fire" type="MarginContainer" parent="Player1/VBox"]
 margin_top = 334.0
-margin_right = 210.0
+margin_right = 208.0
 margin_bottom = 465.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -167,7 +146,7 @@ custom_constants/margin_bottom = -20
 [node name="GrayArea" type="NinePatchRect" parent="Player1/VBox/Fire"]
 margin_left = 40.0
 margin_top = 110.0
-margin_right = 170.0
+margin_right = 168.0
 margin_bottom = 151.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -193,14 +172,14 @@ margin_top = -39.0
 margin_right = -9.0
 margin_bottom = 43.0
 custom_fonts/font = SubResource( 2 )
-text = "3"
+text = "0"
 align = 1
 valign = 1
 autowrap = true
 
 [node name="Bomb" type="MarginContainer" parent="Player1/VBox"]
 margin_top = 469.0
-margin_right = 210.0
+margin_right = 208.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -213,7 +192,7 @@ custom_constants/margin_bottom = 40
 [node name="GrayArea" type="NinePatchRect" parent="Player1/VBox/Bomb"]
 margin_left = 40.0
 margin_top = 50.0
-margin_right = 170.0
+margin_right = 168.0
 margin_bottom = 91.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -239,31 +218,27 @@ margin_top = -39.0
 margin_right = -9.0
 margin_bottom = 43.0
 custom_fonts/font = SubResource( 2 )
-text = "3"
+text = "0"
 align = 1
 valign = 1
 autowrap = true
 
 [node name="Player2" type="Panel" parent="."]
-self_modulate = Color( 1, 0, 0, 1 )
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -210.0
-margin_top = -300.0
-margin_bottom = 300.0
+self_modulate = Color( 0.984314, 0, 0.0705882, 1 )
+margin_left = 816.0
+margin_right = 1024.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player2"]
+[node name="VBox" type="VBoxContainer" parent="Player2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="Player2/VBoxContainer"]
-margin_right = 210.0
-margin_bottom = 176.0
+[node name="PlayerLabel" type="Label" parent="Player2/VBox"]
+margin_right = 208.0
+margin_bottom = 196.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
@@ -275,26 +250,175 @@ valign = 1
 autowrap = true
 uppercase = true
 
-[node name="TextureRect" type="TextureRect" parent="Player2/VBoxContainer"]
-margin_top = 180.0
-margin_right = 210.0
-margin_bottom = 356.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Player2/VBoxContainer"]
-margin_top = 360.0
-margin_right = 210.0
-margin_bottom = 478.0
+[node name="KeysContainer" type="MarginContainer" parent="Player2/VBox"]
+margin_top = 200.0
+margin_right = 208.0
+margin_bottom = 330.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="Player2/VBoxContainer"]
-margin_top = 482.0
-margin_right = 210.0
+[node name="Keys" type="HBoxContainer" parent="Player2/VBox/KeysContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 188.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+custom_constants/separation = 1
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Player2/VBox/KeysContainer/Keys"]
+margin_right = 55.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 50
+
+[node name="A" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/MarginContainer"]
+margin_top = 50.0
+margin_right = 55.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player2/VBox/KeysContainer/Keys"]
+margin_left = 56.0
+margin_right = 111.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="W" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/VBoxContainer"]
+margin_right = 55.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+
+[node name="S" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/VBoxContainer"]
+margin_top = 50.0
+margin_right = 55.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Player2/VBox/KeysContainer/Keys"]
+margin_left = 112.0
+margin_right = 168.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 50
+
+[node name="D" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/MarginContainer2"]
+margin_top = 50.0
+margin_right = 56.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 9 )
+expand = true
+
+[node name="Fire" type="MarginContainer" parent="Player2/VBox"]
+margin_top = 334.0
+margin_right = 208.0
+margin_bottom = 465.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+custom_constants/margin_right = 40
+custom_constants/margin_top = 110
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = -20
+
+[node name="GrayArea" type="NinePatchRect" parent="Player2/VBox/Fire"]
+margin_left = 40.0
+margin_top = 110.0
+margin_right = 168.0
+margin_bottom = 151.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+
+[node name="Texture" type="TextureRect" parent="Player2/VBox/Fire/GrayArea"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -44.5
+margin_right = 64.0
+margin_bottom = 48.5
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Count" type="Label" parent="Player2/VBox/Fire/GrayArea"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -39.0
+margin_right = -9.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Bomb" type="MarginContainer" parent="Player2/VBox"]
+margin_top = 469.0
+margin_right = 208.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+custom_constants/margin_right = 40
+custom_constants/margin_top = 50
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = 40
+
+[node name="GrayArea" type="NinePatchRect" parent="Player2/VBox/Bomb"]
+margin_left = 40.0
+margin_top = 50.0
+margin_right = 168.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+
+[node name="Texture" type="TextureRect" parent="Player2/VBox/Bomb/GrayArea"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -46.5
+margin_right = 58.0
+margin_bottom = 33.5
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Count" type="Label" parent="Player2/VBox/Bomb/GrayArea"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -39.0
+margin_right = -9.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+valign = 1
+autowrap = true
