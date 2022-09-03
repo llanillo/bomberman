@@ -1,34 +1,42 @@
 extends CanvasLayer
 
-const FadeAnim = "screen_fade"
+const FadeAnim = "fade"
 const MapScenesPath = "res://Scenes/Map/"
 const SceneExtension = ".tscn"
+const MainMenuPath = "res://Scenes/UI/HomeUI"
 
 onready var animation_player := $AnimationPlayer as AnimationPlayer
 var total_levels_count := 0
 
+
+
 func _ready():
-	get_total_map_count()
+	get_total_levels_count()
 	
 	
+
+func load_main_menu() -> void:
+	get_tree().change_scene(MainMenuPath + SceneExtension)
 	
-func set_scene(play_anim: bool) -> void:
+
+	
+func switch_to_next_level(play_anim: bool) -> void:
 	if play_anim:
 		animation_player.play(FadeAnim)
 	else:
-		switch_scene()
+		load_next_random_level()
 	
 
 
-func switch_scene() -> void:
+func load_next_random_level() -> void:
 	randomize()
-#	var random_number := randi() % total_levels_count + 1
-#	print (random_number)
-#	get_tree().change_scene(scene)
+	var random_number := randi() % total_levels_count + 1 # Random number between 1 and total_levels_count
+	var next_scene := MapScenesPath + "Level" + str(random_number) + SceneExtension
+	get_tree().change_scene(next_scene)
 
 
 
-func get_total_map_count () -> void:
+func get_total_levels_count () -> void:
 	var directory = Directory.new()
 	
 	if directory.open(MapScenesPath) == OK:
