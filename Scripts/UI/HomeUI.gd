@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 onready var start_button := $VBox/Button
 
@@ -8,4 +8,4 @@ func _ready():
 
 
 func on_start_button_press() -> void:
-	SceneChanger.switch_scene()
+	SceneChanger.switch_to_next_level(true)
