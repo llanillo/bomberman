@@ -9,15 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "RigidBody2D",
 "class": "Bomb",
 "language": "GDScript",
 "path": "res://Scripts/Bomb/Bomb.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "GameManager",
 "language": "GDScript",
 "path": "res://Scripts/System/GameManager.gd"
+}, {
+"base": "Node",
+"class": "NumberUtil",
+"language": "GDScript",
+"path": "res://Scripts/Utils/NumberUtil.gd"
 }, {
 "base": "Area2D",
 "class": "PickupBase",
@@ -43,15 +48,22 @@ _global_script_classes=[ {
 "class": "PlayerType",
 "language": "GDScript",
 "path": "res://Scripts/Player/PlayerType.gd"
+}, {
+"base": "Node",
+"class": "PositionUtil",
+"language": "GDScript",
+"path": "res://Scripts/Utils/PositionUtil.gd"
 } ]
 _global_script_class_icons={
 "Bomb": "",
 "GameManager": "",
+"NumberUtil": "",
 "PickupBase": "",
 "PlayerAttack": "",
 "PlayerInput": "",
 "PlayerManager": "",
-"PlayerType": ""
+"PlayerType": "",
+"PositionUtil": ""
 }
 
 [application]
@@ -64,10 +76,12 @@ config/icon="res://icon.png"
 
 EventManager="*res://Scripts/System/EventManager.gd"
 SceneChanger="*res://Scenes/UI/SceneChanger.tscn"
+GameStatus="*res://Scripts/System/GameStatus.gd"
 
 [display]
 
 window/size/resizable=false
+window/size/fullscreen=true
 window/stretch/mode="viewport"
 
 [gui]
