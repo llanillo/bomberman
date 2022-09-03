@@ -15,9 +15,7 @@ func _ready():
 func on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		var player := body as PlayerManager
-		EventManager.emit_signal("player_die", player.player_type)
-		
-#		GameManager.game_over(player.player_type)
+		EventManager.emit_signal("player_die", player.player_type)		
 
 
 func on_explosion_timer_timeout() -> void:
