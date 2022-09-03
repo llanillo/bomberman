@@ -3,9 +3,12 @@ extends KinematicBody2D
 class_name PlayerManager
 
 const UpVector := Vector2.UP
+const LabelPosition := Vector2(-7, -24)
 
 onready var player_input := $Controllers/Input as PlayerInput
 onready var player_attack := $Controllers/Attack as PlayerAttack
+onready var player_label := $Label as Label
+onready var player_animation := $AnimationPlayer as AnimationPlayer
 
 export (PackedScene) var bomb_scene : PackedScene
 
@@ -26,9 +29,16 @@ func _ready():
 	EventManager.connect("bomb_exploted", self, "on_bomb_exploted")
 	EventManager.connect("item_pickup", self, "on_pickup_item")
 	
+	# Depencendy injection
 	player_input.player_type = player_type
-	player_attack.bomb_scene = bomb_scene	
+	player_attack.bomb_scene = bomb_scene
 	
+	# Nodes preparation	
+	player_label.set_position(LabelPosition) # Sets label position above the player
+	player_label.text = "PLAYER\n" + str(player_type + 1) # Sets label text according to the player type
+	player_animation.play("Label") # Plays the bounce label animation
+	
+	# Resets player stats
 	current_bomb_count = max_bomb_amount
 	current_bomb_duration_time = max_bomb_duration_time
 	current_bomb_range = max_bomb_range
@@ -39,6 +49,8 @@ func _physics_process(delta):
 	current_velocity = player_input.get_player_move_input()
 	current_velocity = move_and_slide(current_velocity * speed, UpVector, false, 4, PI/4, false)
 	on_player_collision_with_bomb(get_slide_count())
+
+
 
 func on_player_collision_with_bomb(collision_count: int) -> void:
 	for index in collision_count:
@@ -56,6 +68,7 @@ func on_player_attack(in_player_type) -> void:
 	player_attack.place_bomb(current_bomb_duration_time, current_bomb_range, global_position)
 	current_bomb_count -= 1
 	EventManager.emit_signal("update_item_canvas", current_bomb_count, current_bomb_range, player_type)	
+
 
 
 func on_bomb_exploted() -> void:
