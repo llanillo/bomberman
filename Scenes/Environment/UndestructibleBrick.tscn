@@ -6,6 +6,7 @@
 extents = Vector2( 15, 14.5 )
 
 [node name="UndestroyableBlock" type="RigidBody2D"]
+z_index = 1
 collision_mask = 31
 mode = 1
 gravity_scale = 0.0
