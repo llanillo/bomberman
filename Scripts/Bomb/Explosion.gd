@@ -16,7 +16,11 @@ func on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		var player := body as PlayerManager
 		EventManager.emit_signal("player_die", player.player_type)		
-
+	
+	if body.is_in_group("Bomb"):
+		body.init_bomb_explosion()
+		
+		
 
 func on_explosion_timer_timeout() -> void:
 	queue_free()
