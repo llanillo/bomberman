@@ -20,12 +20,12 @@ onready var area2d_collision_shape := $Area2D/CollisionShape2D as CollisionShape
 
 func _ready():
 	area2d.connect("body_exited", self, "on_body_exited")	
-	destroy_timer.connect("timeout", self, "on_bomb_timer_timeout")		
+	destroy_timer.connect("timeout", self, "init_bomb_explosion")		
 	destroy_timer.start(bomb_duration_time)
 	
 
 
-func on_bomb_timer_timeout() -> void:
+func init_bomb_explosion() -> void:
 	EventManager.emit_signal("bomb_exploted")
 	
 	# Stops the rigidbody movement
@@ -44,6 +44,7 @@ func on_body_exited(body: Node) -> void:
 	if body.is_in_group("Player"):
 		area2d_collision_shape.set_deferred("disabled", true)
 		rigidbody_collision_shape.set_deferred("disabled", false)
+	
 	
 
 func on_bomb_explosion_animation_finished() -> void:
