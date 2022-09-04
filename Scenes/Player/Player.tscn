@@ -94,8 +94,7 @@ margin_top = -16.0
 margin_right = 24.0
 margin_bottom = 5.0
 custom_fonts/font = SubResource( 4 )
-text = "PLAYER
-1"
+text = "1"
 align = 1
 valign = 1
 autowrap = true
