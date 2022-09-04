@@ -37,7 +37,7 @@ func _ready():
 	
 	# Nodes preparation	
 	player_label.set_position(LabelPosition) # Sets label position above the player
-	player_label.text = "PLAYER\n" + str(player_type + 1) # Sets label text according to the player type
+	player_label.text = str(player_type + 1) # Sets label text according to the player type
 	player_animation.play("Label") # Plays the bounce label animation
 	
 	# Resets player stats
@@ -48,6 +48,11 @@ func _ready():
 	
 func set_sprite_frame(new_sprite_frame: SpriteFrames) -> void:
 	player_animated_sprite.set_sprite_frames(new_sprite_frame)
+	
+	
+	
+func set_label_color(new_color: Color) -> void:
+	player_label.add_color_override("font_color", new_color)
 	
 	
 	
