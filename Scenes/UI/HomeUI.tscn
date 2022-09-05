@@ -67,42 +67,52 @@ size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
 text = "INICIAR"
 
-[node name="Cassandra-brown-brickwork-3" type="Sprite" parent="."]
+[node name="SpawnBomberPosition" type="Position2D" parent="."]
+position = Vector2( 832, 536 )
+
+[node name="Walls" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Cassandra-brown-brickwork-3" type="Sprite" parent="Walls"]
 position = Vector2( 124, 516 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-4" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-4" type="Sprite" parent="Walls"]
 position = Vector2( 125, 348 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-5" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-5" type="Sprite" parent="Walls"]
 position = Vector2( 124, 180 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-6" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-6" type="Sprite" parent="Walls"]
 position = Vector2( 125, 12 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-7" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-7" type="Sprite" parent="Walls"]
 position = Vector2( 900, 516 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-8" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-8" type="Sprite" parent="Walls"]
 position = Vector2( 901, 348 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-9" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-9" type="Sprite" parent="Walls"]
 position = Vector2( 900, 180 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
 
-[node name="Cassandra-brown-brickwork-10" type="Sprite" parent="."]
+[node name="Cassandra-brown-brickwork-10" type="Sprite" parent="Walls"]
 position = Vector2( 901, 12 )
 scale = Vector2( 0.3875, 0.2625 )
 texture = ExtResource( 4 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
