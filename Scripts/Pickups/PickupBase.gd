@@ -2,6 +2,9 @@ extends Area2D
 
 class_name PickupBase
 
+onready var animation_player := $AnimationPlayer as AnimationPlayer
+
+
 enum Index {fire = 0, mini_bomb = 1}
 
 export (float) var time_to_destroy := 3.0
@@ -11,6 +14,7 @@ export(Index) var pickup_type := Index.fire
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("body_entered", self, "on_body_entered")
+	animation_player.play("pickup_item")
 
 
 func on_body_entered(body: Node) -> void:
