@@ -55,6 +55,10 @@ func set_label_color(new_color: Color) -> void:
 	player_label.add_color_override("font_color", new_color)
 	
 	
+func hide_label()-> void:
+	player_label.visible = false
+	
+	
 	
 func _physics_process(delta):	
 	if !GameStatus.can_play : return
@@ -80,13 +84,14 @@ func on_player_attack(in_player_type) -> void:
 	if current_bomb_count <= 0: return
 	if is_there_already_a_bomb_in_position(global_position) : return
 			
-	player_attack.place_bomb(current_bomb_duration_time, current_bomb_range, global_position)
+	player_attack.place_bomb(current_bomb_duration_time, current_bomb_range, global_position, player_type)
 	current_bomb_count -= 1
 	EventManager.emit_signal("update_item_canvas", current_bomb_count, current_bomb_range, player_type)	
 
 
 
-func on_bomb_exploted() -> void:
+func on_bomb_exploted(in_player_type) -> void:
+	if player_type != in_player_type: return
 	if current_bomb_count >= max_bomb_amount: return
 	
 	current_bomb_count += 1
