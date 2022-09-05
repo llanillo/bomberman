@@ -10,19 +10,26 @@ export (PackedScene) var fire_pickup_scene := preload("res://Scenes/Pickups/Fire
 export (PackedScene) var minibomb_pickup_scene := preload("res://Scenes/Pickups/MiniBomb.tscn")
 
 
+func _ready():
+	EventManager.connect("sudden_death_start", self, "start_brick_destroy_animation")
 	
-func destroy_brick() -> void:
+	
+	
+func start_brick_destroy_animation() -> void:
 	animation_player.play("destroy")
 	
 
-func on_destory_brick_animation_finish () -> void:
-	randomize()
-	var random_value := randf()
-		
-	if is_float_in_range(random_value, 0, fire_pickup_chance):
-		instantiate_pickup(fire_pickup_scene)
-	elif is_float_in_range(random_value, fire_pickup_chance,  minibomb_pickup_chance):
-		instantiate_pickup(minibomb_pickup_scene)
+
+func on_destroy_brick_animation_finish () -> void:
+	if !GameStatus.sudden_death_started:
+		randomize()
+		var random_value := randf()
+			
+		if is_float_in_range(random_value, 0, fire_pickup_chance):
+			instantiate_pickup(fire_pickup_scene)
+		elif is_float_in_range(random_value, fire_pickup_chance,  minibomb_pickup_chance):
+			instantiate_pickup(minibomb_pickup_scene)
+			
 	queue_free()
 	
 	

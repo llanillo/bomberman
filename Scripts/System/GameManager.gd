@@ -3,14 +3,15 @@ extends Node2D
 class_name GameManager
 
 const TileSize := 32
-const TileMapBrickindex := 0
+const TimeBeforeSuddenDeath := 90
+#const TileMapBrickindex := 0
 
 onready var bricks_tile_map := $BricksTileMap
 onready var game_ui := $GameUI
-onready var start_game_timer := $StartGameTimer
-onready var timer_label := $TimerLabel
-onready var player0 := $Player 
-onready var player1 := $Player2
+onready var game_timer := $GameTimer as Timer
+onready var timer_label := $TimerLabel as Label
+onready var player0 := $Player0
+onready var player1 := $Player1
 
 export (PackedScene) var game_over_ui_scene := preload("res://Scenes/UI/GameOverUI.tscn")
 
@@ -28,15 +29,17 @@ export (Dictionary) var tiles_scenes := {
 func _ready():
 	EventManager.connect("player_die", self, "show_game_over")
 	timer_label.add_color_override("font_color", Color(randf(), randf(), randf()))
-	start_game_timer.connect("timeout", self, "restart_game")
-	start_game_timer.start()
+	game_timer.connect("timeout", self, "restart_game")
+	game_timer.start()
+	
 	# TODO UNCOMMENT
 #	set_random_color_to_player()
-#	set_player_canvas_colors(0, player0_color)
-#	set_player_canvas_colors(1, player1_color)
+#	game_ui,set_player_canvas_colors(0, player0_color)
+#	game_ui.set_player_canvas_colors(1, player1_color)
+#	player0.set_label_color(player0_color)
+#	player1.set_label_color(player1_color)
 #	player0.set_sprite_frame(player0_sprite_frame)
 #	player1.set_sprite_frame(playaer1_sprite_frame
-
 
 #	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes # TODO TEST if removing still works
 	replace_tiles_with_scene_objects(bricks_tile_map, tiles_scenes)
@@ -44,7 +47,7 @@ func _ready():
 
 
 func _process(delta):
-	timer_label.text = (str(int(start_game_timer.time_left + 1)))
+	timer_label.text = (str(int(game_timer.time_left + 1)))
 	
 	
 	
@@ -68,11 +71,24 @@ func show_game_over(losing_player: int) -> void:
 func restart_game() -> void:
 	# Allows player movements
 	GameStatus.can_play = true
-	timer_label.visible = false
 	
 	# Initial player canvas values
 	game_ui.update_player_items(1, 1, 0)
 	game_ui.update_player_items(1, 1, 1)
+	
+	# Hides players label
+	player0.hide_label()
+	player1.hide_label()
+	
+	# Starts sudden death timer
+	game_timer.disconnect("timeout", self, "restart_game")
+	game_timer.start(TimeBeforeSuddenDeath)
+	yield(game_timer, "timeout")
+	
+	timer_label.visible = false
+	GameStatus.sudden_death_started = true
+	EventManager.emit_signal("sudden_death_start")
+
 
 
 
