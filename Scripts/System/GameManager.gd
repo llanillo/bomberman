@@ -23,19 +23,7 @@ export (Dictionary) var tiles_scenes := {
 	0: preload("res://Scenes/Environment/UndestructibleBrick.tscn"),
 	1: preload("res://Scenes/Environment/DestructibleBrick.tscn")}
 
-# TODO REPLACE WITH SPRITE FRAMES FILES
-export (Dictionary) var players_sprite_frames := {}
-#	0: preload(),
-#	1: preload(),
-#	2: preload(),
-#	3: preload()}
 
-export (Dictionary) var player_colors := {
-	0: Color.aliceblue,
-	1: Color.aliceblue,
-	2: Color.aliceblue,
-	3: Color.aliceblue}
-	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventManager.connect("player_die", self, "show_game_over")
@@ -87,14 +75,17 @@ func restart_game() -> void:
 	game_ui.update_player_items(1, 1, 1)
 
 
+
 # TODO : Add to ready function
 func set_random_color_to_player(player) -> void:
-	var first_number = NumberUtil.get_random_number_in_range(0, player_colors.size(), -1)
-	var second_number = NumberUtil.get_random_number_in_range(0, player_colors.size(), first_number)
-	player0_color = player_colors[first_number]
-	player1_color = player_colors[second_number]
-	player0_sprite_frame = players_sprite_frames[first_number]
-	player1_sprite_frame = players_sprite_frames[second_number]
+	var colors_to_choose = PlayerStyle.player_colors
+	var sprite_frames_to_choose = PlayerStyle.players_sprite_frames
+	var first_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), -1)
+	var second_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), first_number)
+	player0_color = colors_to_choose[first_number]
+	player1_color = colors_to_choose[second_number]
+	player0_sprite_frame = sprite_frames_to_choose[first_number]
+	player1_sprite_frame = sprite_frames_to_choose[second_number]
 
 
 
