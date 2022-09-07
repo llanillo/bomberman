@@ -16,10 +16,9 @@ export (PackedScene) var bomb_scene : PackedScene
 export (PlayerType.Index) var player_type := PlayerType.Index.player0
 export (int) var speed := 200
 export (int) var push_strength := 10
-export (int) var max_bomb_amount := 1
-export (int) var max_bomb_range := 1
 export (float) var max_bomb_duration_time := 2.0
 
+var max_bomb_amount := 1
 var current_velocity : Vector2
 var current_bomb_count : int
 var current_bomb_range : int
@@ -43,20 +42,29 @@ func _ready():
 	# Resets player stats
 	current_bomb_count = max_bomb_amount
 	current_bomb_duration_time = max_bomb_duration_time
-	current_bomb_range = max_bomb_range
-	
-	
-func set_sprite_frame(new_sprite_frame: SpriteFrames) -> void:
-	player_animated_sprite.set_sprite_frames(new_sprite_frame)
+	current_bomb_range = 1
 	
 	
 	
-func set_label_color(new_color: Color) -> void:
-	player_label.add_color_override("font_color", new_color)
+func set_sprite_frame(sprite_frame: SpriteFrames) -> void:
+	player_animated_sprite.set_sprite_frames(sprite_frame)
+	player_animated_sprite.set_animation("Down")
+	player_animated_sprite.playing = true 
+	
+	
+func set_label_color(color: Color) -> void:
+	player_label.add_color_override("font_color", color)
+	
 	
 	
 func hide_label()-> void:
 	player_label.visible = false
+	
+	
+	
+func _process(delta):
+	if !GameStatus.can_play : return
+	handle_player_animation()
 	
 	
 	
@@ -69,6 +77,28 @@ func _physics_process(delta):
 
 
 
+func handle_player_animation() -> void:
+#	if current_velocity == Vector2.ZERO:
+#		player_animated_sprite.stop()
+#	else:
+		player_animated_sprite.play()
+		
+		if current_velocity.x != 0:
+			player_animated_sprite.set_animation("Horizontal")
+			
+			if current_velocity.x > 0:
+				player_animated_sprite.flip_h = false
+			elif current_velocity.x < 0:
+				player_animated_sprite.flip_h = true
+				
+		elif current_velocity.y != 0:
+			if current_velocity.y < 0:
+				player_animated_sprite.set_animation("Up")
+			elif current_velocity.y >= 0:
+				player_animated_sprite.set_animation("Down")
+		
+		
+		
 func on_player_collision_with_bomb(collision_count: int) -> void:
 	for index in collision_count:
 		var collision = get_slide_collision(index)
@@ -104,9 +134,11 @@ func on_pickup_item(in_player_type: int, in_pickup_type : int) -> void:
 	
 	match in_pickup_type:		
 		0: # Fire items, increase explosion range
-			max_bomb_range += 1
+			if current_bomb_range >= GameManager.MaximumBombRange: return
 			current_bomb_range += 1
 		1: # Minibombs items, increase bomb amount
+			if current_bomb_count >= GameManager.MaximumBombs: return
+			if max_bomb_amount >= GameManager.MaximumBombs: return
 			max_bomb_amount += 1
 			current_bomb_count += 1
 			

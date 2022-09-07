@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=13 format=2]
+
+[ext_resource path="res://Sprites/Player/Moving/Other/Down/Bomberman_down_run2.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Player/Moving/Other/Horizontal/Bomberman_hor_run1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Moving/Other/Horizontal/Bomberman_hor_run2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Player/Moving/Other/Down/Bomberman_down_run4.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Player/Moving/Other/Down/Bomberman_down_run1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Player/Moving/Other/Down/Bomberman_down_run3.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Player/Moving/Other/Up/Bomberman_up_run1.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Player/Moving/Other/Horizontal/Bomberman_hor_run3.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Player/Moving/Other/Horizontal/Bomberman_hor_run4.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Player/Moving/Other/Up/Bomberman_up_run2.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Player/Moving/Other/Up/Bomberman_up_run3.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Player/Moving/Other/Up/Bomberman_up_run4.png" type="Texture" id=12]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Horizontal",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Down",
+"speed": 5.0
+} ]

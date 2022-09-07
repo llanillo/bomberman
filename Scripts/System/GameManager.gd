@@ -3,7 +3,9 @@ extends Node2D
 class_name GameManager
 
 const TileSize := 32
-const TimeBeforeSuddenDeath := 90
+const TimeBeforeSuddenDeath := 40
+const MaximumBombs := 5
+const MaximumBombRange := 6
 #const TileMapBrickindex := 0
 
 onready var bricks_tile_map := $BricksTileMap
@@ -15,10 +17,6 @@ onready var player1 := $Player1
 
 export (PackedScene) var game_over_ui_scene := preload("res://Scenes/UI/GameOverUI.tscn")
 
-var player0_sprite_frame : SpriteFrames
-var player1_sprite_frame : SpriteFrames
-var player0_color : Color
-var player1_color : Color
 
 export (Dictionary) var tiles_scenes := {
 	0: preload("res://Scenes/Environment/UndestructibleBrick.tscn"),
@@ -28,18 +26,20 @@ export (Dictionary) var tiles_scenes := {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventManager.connect("player_die", self, "show_game_over")
+	PlayerStyle.set_player_random_style()
 	timer_label.add_color_override("font_color", Color(randf(), randf(), randf()))
 	game_timer.connect("timeout", self, "restart_game")
 	game_timer.start()
 	
-	# TODO UNCOMMENT
-#	set_random_color_to_player()
-#	game_ui,set_player_canvas_colors(0, player0_color)
-#	game_ui.set_player_canvas_colors(1, player1_color)
-#	player0.set_label_color(player0_color)
-#	player1.set_label_color(player1_color)
-#	player0.set_sprite_frame(player0_sprite_frame)
-#	player1.set_sprite_frame(playaer1_sprite_frame
+	# Set colors according to players
+	var player0_color := PlayerStyle.get_player0_color()
+	var player1_color := PlayerStyle.get_player1_color()
+	game_ui.set_player_canvas_colors(0, player0_color)
+	game_ui.set_player_canvas_colors(1, player1_color)
+	player0.set_label_color(player0_color)
+	player1.set_label_color(player1_color)
+	player0.set_sprite_frame(PlayerStyle.get_player0_sprite_frame())
+	player1.set_sprite_frame(PlayerStyle.get_player1_sprite_frame())
 
 #	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes # TODO TEST if removing still works
 	replace_tiles_with_scene_objects(bricks_tile_map, tiles_scenes)
@@ -56,14 +56,17 @@ func show_game_over(losing_player: int) -> void:
 	
 	var game_over_ui_instance = game_over_ui_scene.instance()
 	var winner_player
+	var winner_color
 	
 	if losing_player == 0:
 		winner_player = 1
+		winner_color = PlayerStyle.get_player1_color()
 	else:
 		winner_player = 0
+		winner_color = PlayerStyle.get_player0_color()
 		
 	add_child(game_over_ui_instance)
-	game_over_ui_instance.set_winner_label_text(winner_player + 1, Color.blueviolet) # TODO: replace color
+	game_over_ui_instance.set_winner_label_text(winner_player + 1, winner_color)
 	GameStatus.can_play = false
 	
 
@@ -93,16 +96,16 @@ func restart_game() -> void:
 
 
 # TODO : Add to ready function
-func set_random_color_to_player(player) -> void:
-	var colors_to_choose = PlayerStyle.player_colors
-	var sprite_frames_to_choose = PlayerStyle.players_sprite_frames
-	var first_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), -1)
-	var second_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), first_number)
-	player0_color = colors_to_choose[first_number]
-	player1_color = colors_to_choose[second_number]
-	player0_sprite_frame = sprite_frames_to_choose[first_number]
-	player1_sprite_frame = sprite_frames_to_choose[second_number]
-
+#func set_random_color_to_player(player) -> void:
+#	var colors_to_choose = PlayerStyle.player_colors
+#	var sprite_frames_to_choose = PlayerStyle.players_sprite_frames
+#	var first_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), -1)
+#	var second_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), first_number)
+#	player0_color = colors_to_choose[first_number]
+#	player1_color = colors_to_choose[second_number]
+#	player0_sprite_frame = sprite_frames_to_choose[first_number]
+#	player1_sprite_frame = sprite_frames_to_choose[second_number]
+#
 
 
 func replace_tiles_with_scene_objects(tile_map: TileMap, scenes_dicitionary: Dictionary) -> void:
