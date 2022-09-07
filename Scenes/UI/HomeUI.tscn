@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Fonts/ARCADE_R.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/ARCADE_N.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/UI/HomeUI.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Environment/cassandra-brown-brickwork-3.jpg" type="Texture" id=4]
+[ext_resource path="res://Sprites/UI/Buttons/Botton_Start2.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/UI/Buttons/Botton_Start1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Environment/Destroy_Animation/Brick_destroy0.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -12,8 +14,8 @@ use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 14
-use_mipmaps = true
+size = 20
+outline_color = Color( 1, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [node name="Home" type="Control"]
@@ -48,24 +50,38 @@ valign = 1
 autowrap = true
 uppercase = true
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="Button" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -104.0
-margin_top = -242.0
+margin_top = -258.0
 margin_right = 104.0
-margin_bottom = -176.0
-
-[node name="Button" type="Button" parent="VBox"]
-margin_right = 208.0
-margin_bottom = 66.0
+margin_bottom = -130.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="Button"]
+anchor_top = -0.0859375
+anchor_right = 1.0
+anchor_bottom = 0.914063
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.372549, 0.372549, 0.372549, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "INICIAR"
+text = "START"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="SpawnBomberPosition" type="Position2D" parent="."]
 position = Vector2( 832, 536 )
@@ -73,45 +89,405 @@ position = Vector2( 832, 536 )
 [node name="Walls" type="Node2D" parent="."]
 z_index = 1
 
-[node name="BrickWall" type="Sprite" parent="Walls"]
-position = Vector2( 124, 516 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick" type="Sprite" parent="Walls"]
+position = Vector2( 32, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall2" type="Sprite" parent="Walls"]
-position = Vector2( 125, 348 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick2" type="Sprite" parent="Walls"]
+position = Vector2( 96, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall3" type="Sprite" parent="Walls"]
-position = Vector2( 124, 180 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick3" type="Sprite" parent="Walls"]
+position = Vector2( 160, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall4" type="Sprite" parent="Walls"]
-position = Vector2( 125, 12 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick4" type="Sprite" parent="Walls"]
+position = Vector2( 224, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall5" type="Sprite" parent="Walls"]
-position = Vector2( 900, 516 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick5" type="Sprite" parent="Walls"]
+position = Vector2( 32, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall6" type="Sprite" parent="Walls"]
-position = Vector2( 901, 348 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick6" type="Sprite" parent="Walls"]
+position = Vector2( 96, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall7" type="Sprite" parent="Walls"]
-position = Vector2( 900, 180 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick7" type="Sprite" parent="Walls"]
+position = Vector2( 160, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
-[node name="BrickWall8" type="Sprite" parent="Walls"]
-position = Vector2( 901, 12 )
-scale = Vector2( 0.3875, 0.2625 )
-texture = ExtResource( 4 )
+[node name="IndestructibleBrick8" type="Sprite" parent="Walls"]
+position = Vector2( 224, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick9" type="Sprite" parent="Walls"]
+position = Vector2( 32, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick10" type="Sprite" parent="Walls"]
+position = Vector2( 96, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick11" type="Sprite" parent="Walls"]
+position = Vector2( 160, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick12" type="Sprite" parent="Walls"]
+position = Vector2( 224, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick13" type="Sprite" parent="Walls"]
+position = Vector2( 32, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick14" type="Sprite" parent="Walls"]
+position = Vector2( 96, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick15" type="Sprite" parent="Walls"]
+position = Vector2( 160, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick16" type="Sprite" parent="Walls"]
+position = Vector2( 224, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick17" type="Sprite" parent="Walls"]
+position = Vector2( 32, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick18" type="Sprite" parent="Walls"]
+position = Vector2( 96, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick19" type="Sprite" parent="Walls"]
+position = Vector2( 160, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick20" type="Sprite" parent="Walls"]
+position = Vector2( 224, 312 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick21" type="Sprite" parent="Walls"]
+position = Vector2( 32, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick22" type="Sprite" parent="Walls"]
+position = Vector2( 96, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick23" type="Sprite" parent="Walls"]
+position = Vector2( 160, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick24" type="Sprite" parent="Walls"]
+position = Vector2( 224, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick25" type="Sprite" parent="Walls"]
+position = Vector2( 32, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick26" type="Sprite" parent="Walls"]
+position = Vector2( 96, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick27" type="Sprite" parent="Walls"]
+position = Vector2( 160, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick28" type="Sprite" parent="Walls"]
+position = Vector2( 224, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick29" type="Sprite" parent="Walls"]
+position = Vector2( 32, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick30" type="Sprite" parent="Walls"]
+position = Vector2( 96, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick31" type="Sprite" parent="Walls"]
+position = Vector2( 160, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick32" type="Sprite" parent="Walls"]
+position = Vector2( 224, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick33" type="Sprite" parent="Walls"]
+position = Vector2( 32, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick34" type="Sprite" parent="Walls"]
+position = Vector2( 96, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick35" type="Sprite" parent="Walls"]
+position = Vector2( 160, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick36" type="Sprite" parent="Walls"]
+position = Vector2( 224, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick37" type="Sprite" parent="Walls"]
+position = Vector2( 32, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick38" type="Sprite" parent="Walls"]
+position = Vector2( 96, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick39" type="Sprite" parent="Walls"]
+position = Vector2( 160, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick40" type="Sprite" parent="Walls"]
+position = Vector2( 224, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick41" type="Sprite" parent="Walls"]
+position = Vector2( 808, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick42" type="Sprite" parent="Walls"]
+position = Vector2( 872, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick43" type="Sprite" parent="Walls"]
+position = Vector2( 936, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick44" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 568 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick45" type="Sprite" parent="Walls"]
+position = Vector2( 808, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick46" type="Sprite" parent="Walls"]
+position = Vector2( 872, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick47" type="Sprite" parent="Walls"]
+position = Vector2( 936, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick48" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 504 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick49" type="Sprite" parent="Walls"]
+position = Vector2( 808, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick50" type="Sprite" parent="Walls"]
+position = Vector2( 872, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick51" type="Sprite" parent="Walls"]
+position = Vector2( 936, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick52" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 440 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick53" type="Sprite" parent="Walls"]
+position = Vector2( 808, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick54" type="Sprite" parent="Walls"]
+position = Vector2( 872, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick55" type="Sprite" parent="Walls"]
+position = Vector2( 936, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick56" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 376 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick57" type="Sprite" parent="Walls"]
+position = Vector2( 808, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick58" type="Sprite" parent="Walls"]
+position = Vector2( 872, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick59" type="Sprite" parent="Walls"]
+position = Vector2( 936, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick60" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 314 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick61" type="Sprite" parent="Walls"]
+position = Vector2( 808, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick62" type="Sprite" parent="Walls"]
+position = Vector2( 872, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick63" type="Sprite" parent="Walls"]
+position = Vector2( 936, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick64" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 250 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick65" type="Sprite" parent="Walls"]
+position = Vector2( 808, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick66" type="Sprite" parent="Walls"]
+position = Vector2( 872, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick67" type="Sprite" parent="Walls"]
+position = Vector2( 936, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick68" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick69" type="Sprite" parent="Walls"]
+position = Vector2( 808, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick70" type="Sprite" parent="Walls"]
+position = Vector2( 872, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick71" type="Sprite" parent="Walls"]
+position = Vector2( 936, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick72" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 124 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick73" type="Sprite" parent="Walls"]
+position = Vector2( 808, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick74" type="Sprite" parent="Walls"]
+position = Vector2( 872, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick75" type="Sprite" parent="Walls"]
+position = Vector2( 936, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick76" type="Sprite" parent="Walls"]
+position = Vector2( 1000, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick77" type="Sprite" parent="Walls"]
+position = Vector2( 808, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick78" type="Sprite" parent="Walls"]
+position = Vector2( 872, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick79" type="Sprite" parent="Walls"]
+position = Vector2( 936, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="IndestructibleBrick80" type="Sprite" parent="Walls"]
+position = Vector2( 1000, -4 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0

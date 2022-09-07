@@ -1,7 +1,7 @@
 extends Control
 
 onready var spawn_bomber_position := $SpawnBomberPosition
-onready var start_button := $VBox/Button
+onready var start_button := $Button
 onready var spawn_timer := $SpawnTimer
 
 export (PackedScene) var bomberman_decoration__scene := preload("res://Scenes/UI/BomberDecoration.tscn")
@@ -25,4 +25,3 @@ func on_spawn_timer_timeout() -> void:
 	bomber_instance.global_position = spawn_bomber_position.global_position
 	add_child(bomber_instance)
 	spawn_timer.start()
-	
