@@ -5,10 +5,9 @@ class_name Bomb
 var direction_array := [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT] as Array
 
 export (PackedScene) var explosion_scene : PackedScene
-export (float) var explosion_duration := 2.0
+export (float) var explosion_duration := 0.5
 
 var bomb_duration_time : float
-var explosion_duration_time : float
 var explosion_range : int
 var player_type : int
 
@@ -27,7 +26,7 @@ func _ready():
 
 func init_bomb_explosion() -> void:
 	EventManager.emit_signal("bomb_exploted", player_type)
-	
+
 	instantiate_explosion(global_position)
 	for direction in direction_array:
 		instantiate_explosion_line(global_position, direction)
@@ -38,7 +37,7 @@ func init_bomb_explosion() -> void:
 
 func on_body_exited(body: Node) -> void:	
 	if body.is_in_group("Player"):
-		area2d_collision_shape.set_deferred("disabled", true)
+		area2d_collision_shape.queue_free()
 		rigidbody_collision_shape.set_deferred("disabled", false)
 	
 
@@ -71,5 +70,5 @@ func instantiate_explosion_line(position: Vector2, direction: Vector2) -> void:
 func instantiate_explosion(position) -> void:	
 	var explosion_instance = explosion_scene.instance()
 	explosion_instance.global_position = position	
-	explosion_instance.explosion_duration_time = explosion_duration_time
+	explosion_instance.explosion_duration_time = explosion_duration
 	get_tree().root.add_child(explosion_instance)	
