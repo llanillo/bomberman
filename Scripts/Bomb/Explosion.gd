@@ -2,7 +2,7 @@ extends Node
 
 onready var destroy_timer := $DestroyTimer as Timer
 
-var explosion_duration_time : int
+var explosion_duration_time : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
