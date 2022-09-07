@@ -5,7 +5,7 @@
 [ext_resource path="res://Sprites/Bomb/Bomb.png" type="Texture" id=3]
 
 [sub_resource type="PhysicsMaterial" id=5]
-bounce = 0.5
+bounce = 0.2
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -47,7 +47,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "bomb"
-length = 3.0
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
 tracks/0/interp = 1
@@ -67,7 +67,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 3 ),
+"times": PoolRealArray( 2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -84,6 +84,7 @@ physics_material_override = SubResource( 5 )
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
+linear_damp = 0.01
 script = ExtResource( 1 )
 explosion_scene = ExtResource( 2 )
 
@@ -99,7 +100,6 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="Area2D" type="Area2D" parent="." groups=["Bomb"]]
-visible = false
 position = Vector2( 0, 4 )
 collision_layer = 4
 collision_mask = 2
