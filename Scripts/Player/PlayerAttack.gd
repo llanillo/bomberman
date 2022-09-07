@@ -10,11 +10,11 @@ func place_bomb(bomb_duration: float, bomb_range: int, position: Vector2, in_pla
 #
 	var bomb_instance = bomb_scene.instance()
 	bomb_instance.global_position = new_position
-	bomb_instance.explosion_range = bomb_range
-	bomb_instance.bomb_duration_time = bomb_duration
+	bomb_instance.set("explosion_range", bomb_range)
+	bomb_instance.set("bomb_duration_time", bomb_duration)
 	
 	# Dependency injection (player_type)
-	bomb_instance.player_type = in_player_type
+	bomb_instance.set("player_type", in_player_type)
 	
 	get_tree().root.add_child(bomb_instance)
 	
