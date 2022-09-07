@@ -44,7 +44,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
 custom_fonts/font = SubResource( 1 )
 text = "PLAYER
- 2"
+ 1"
 align = 1
 valign = 1
 autowrap = true
@@ -244,7 +244,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
 custom_fonts/font = SubResource( 1 )
 text = "PLAYER
- 1"
+ 2"
 align = 1
 valign = 1
 autowrap = true

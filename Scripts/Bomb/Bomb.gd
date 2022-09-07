@@ -37,7 +37,7 @@ func init_bomb_explosion() -> void:
 
 func on_body_exited(body: Node) -> void:	
 	if body.is_in_group("Player"):
-		area2d_collision_shape.queue_free()
+		area2d_collision_shape.set_deferred("disabled", true)
 		rigidbody_collision_shape.set_deferred("disabled", false)
 	
 

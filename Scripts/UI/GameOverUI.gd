@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-onready var home_button := $HomeButton as Button
-onready var restart_button := $RestartButton as Button 
+onready var home_button := $HomeButton as TextureButton
+onready var restart_button := $RestartButton as TextureButton 
 onready var winner_label := $WinnerLabel as Label
 onready var cooldown_timer := $CooldownTimer as Timer
 

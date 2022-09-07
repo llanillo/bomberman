@@ -14,8 +14,8 @@ var player_colors := {
 
 
 
-var player0_index : int
 var player1_index : int
+var player2_index : int
 
 
 
@@ -24,17 +24,17 @@ func get_random_style_index() -> int:
 	return randi() % sprite_frames.keys().size()
 
 
-func get_player0_color() -> Color:
-	return player_colors[player0_index]
-	
-	
-	
 func get_player1_color() -> Color:
-	return player_colors [player1_index]
+	return player_colors[player1_index]
+	
+	
+	
+func get_player2_color() -> Color:
+	return player_colors [player2_index]
 	
 
-func get_player0_sprite_frame() -> SpriteFrames:
-	return sprite_frames[player0_index]
+func get_player2_sprite_frame() -> SpriteFrames:
+	return sprite_frames[player2_index]
 
 
 func get_player1_sprite_frame() -> SpriteFrames:
@@ -42,10 +42,10 @@ func get_player1_sprite_frame() -> SpriteFrames:
 	
 	
 func set_player_random_style() -> void:
-	player0_index = -1
 	player1_index = -1
+	player2_index = -1
 	
-	while player0_index == player1_index:
+	while player2_index == player1_index:
 		randomize()
-		player0_index = randi() % sprite_frames.keys().size()
 		player1_index = randi() % sprite_frames.keys().size()
+		player2_index = randi() % sprite_frames.keys().size()

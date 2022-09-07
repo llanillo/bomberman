@@ -12,8 +12,8 @@ onready var bricks_tile_map := $BricksTileMap
 onready var game_ui := $GameUI
 onready var game_timer := $GameTimer as Timer
 onready var timer_label := $TimerLabel as Label
-onready var player0 := $Player0
-onready var player1 := $Player1
+onready var player1 := $Player0
+onready var player2 := $Player1
 
 export (PackedScene) var game_over_ui_scene := preload("res://Scenes/UI/GameOverUI.tscn")
 
@@ -32,14 +32,14 @@ func _ready():
 	game_timer.start()
 	
 	# Set colors according to players
-	var player0_color := PlayerStyle.get_player0_color()
 	var player1_color := PlayerStyle.get_player1_color()
-	game_ui.set_player_canvas_colors(0, player0_color)
-	game_ui.set_player_canvas_colors(1, player1_color)
-	player0.set_label_color(player0_color)
+	var player2_color := PlayerStyle.get_player2_color()
+	game_ui.set_player_canvas_colors(0, player1_color)
+	game_ui.set_player_canvas_colors(1, player2_color)
 	player1.set_label_color(player1_color)
-	player0.set_sprite_frame(PlayerStyle.get_player0_sprite_frame())
+	player2.set_label_color(player2_color)
 	player1.set_sprite_frame(PlayerStyle.get_player1_sprite_frame())
+	player2.set_sprite_frame(PlayerStyle.get_player2_sprite_frame())
 
 #	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes # TODO TEST if removing still works
 	replace_tiles_with_scene_objects(bricks_tile_map, tiles_scenes)
@@ -59,14 +59,14 @@ func show_game_over(losing_player: int) -> void:
 	var winner_color
 	
 	if losing_player == 0:
+		winner_player = 2
+		winner_color = PlayerStyle.get_player2_color()
+	else:
 		winner_player = 1
 		winner_color = PlayerStyle.get_player1_color()
-	else:
-		winner_player = 0
-		winner_color = PlayerStyle.get_player0_color()
 		
 	add_child(game_over_ui_instance)
-	game_over_ui_instance.set_winner_label_text(winner_player + 1, winner_color)
+	game_over_ui_instance.set_winner_label_text(winner_player, winner_color)
 	GameStatus.can_play = false
 	
 
@@ -80,8 +80,8 @@ func restart_game() -> void:
 	game_ui.update_player_items(1, 1, 1)
 	
 	# Hides players label
-	player0.hide_label()
 	player1.hide_label()
+	player2.hide_label()
 	
 	# Starts sudden death timer
 	game_timer.disconnect("timeout", self, "restart_game")
