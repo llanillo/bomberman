@@ -3,7 +3,7 @@ extends Node2D
 class_name GameManager
 
 const TileSize := 32
-const TimeBeforeSuddenDeath := 40
+const TimeBeforeSuddenDeath := 35
 const MaximumBombs := 5
 const MaximumBombRange := 6
 #const TileMapBrickindex := 0
