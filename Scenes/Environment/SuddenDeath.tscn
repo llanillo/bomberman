@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Environment/SuddenDeath.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Environment/Destroy_Animation/Brick_destroy0.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 552, 208 )
@@ -12,7 +13,12 @@ extents = Vector2( 286, 372 )
 script = ExtResource( 1 )
 
 [node name="TopWall" type="Area2D" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -32 )
+
+[node name="Sprite" type="Sprite" parent="TopWall"]
+position = Vector2( 520, -144 )
+scale = Vector2( 34.5, 13.5 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
 position = Vector2( 520, -148 )
@@ -21,6 +27,12 @@ shape = SubResource( 1 )
 [node name="DownWall" type="Area2D" parent="."]
 position = Vector2( -8, 656 )
 
+[node name="Sprite" type="Sprite" parent="DownWall"]
+position = Vector2( 538.422, 128.941 )
+rotation = 3.14159
+scale = Vector2( 34.4034, -13.214 )
+texture = ExtResource( 2 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownWall"]
 position = Vector2( 536, 128 )
 shape = SubResource( 1 )
@@ -28,12 +40,22 @@ shape = SubResource( 1 )
 [node name="LeftWall" type="Area2D" parent="."]
 position = Vector2( 80, 624 )
 
+[node name="Sprite" type="Sprite" parent="LeftWall"]
+position = Vector2( -136, -324 )
+scale = Vector2( 18, 23.25 )
+texture = ExtResource( 2 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 position = Vector2( -136, -328 )
 shape = SubResource( 2 )
 
 [node name="RightWall" type="Area2D" parent="."]
 position = Vector2( 40, 624 )
+
+[node name="Sprite" type="Sprite" parent="RightWall"]
+position = Vector2( 1040, -320 )
+scale = Vector2( 18, 23.5 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 position = Vector2( 1040, -320 )
