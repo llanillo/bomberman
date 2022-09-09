@@ -14,7 +14,8 @@ onready var player_animated_sprite := $AnimatedSprite as AnimatedSprite
 export (PackedScene) var bomb_scene : PackedScene
 
 export (PlayerType.Index) var player_type := PlayerType.Index.player0
-export (int) var speed := 200
+export (float) var speed := 3.5
+#export (float) var speed := 200
 export (int) var push_strength := 10
 export (float) var max_bomb_duration_time := 2.0
 
@@ -72,8 +73,14 @@ func _physics_process(delta):
 	if !GameStatus.can_play : return
 	
 	current_velocity = player_input.get_player_move_input()
-	current_velocity = move_and_slide(current_velocity * speed, UpVector, false, 4, PI/4, false)
-	on_player_collision_with_bomb(get_slide_count())
+#	current_velocity = move_and_slide(current_velocity * speed, UpVector, false, 4, PI/4, false)
+	var collision_info = move_and_collide(current_velocity * speed, false)
+	if collision_info:
+#		current_velocity = (collision_info.normal.tangent() + collision_info.remainder) * speed
+		
+		if collision_info.collider.is_in_group("Bomb"):
+				collision_info.collider.apply_central_impulse(-collision_info.normal * push_strength)
+				
 
 
 
@@ -99,13 +106,13 @@ func handle_player_animation() -> void:
 		
 		
 		
-func on_player_collision_with_bomb(collision_count: int) -> void:
-	for index in collision_count:
-		var collision = get_slide_collision(index)
-		
-		if collision.collider.is_in_group("Bomb"):
-			collision.collider.apply_central_impulse(-collision.normal * push_strength)
-		
+#func on_player_collision_with_bomb(collision_count: int) -> void:
+#	for index in collision_count:
+#		var collision = get_slide_collision(index)
+#
+#		if collision.collider.is_in_group("Bomb"):
+#			collision.collider.apply_central_impulse(-collision.normal * push_strength)
+#
 
 
 func on_player_attack(in_player_type) -> void:	
