@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/Environment/Destroy_Animation/Brick_explosion_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Environment/DestroyableBlock.gd" type="Script" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 14.5 )
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -66,10 +63,9 @@ minibomb_pickup_chance = 0.6
 texture = ExtResource( 1 )
 hframes = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.5 )
-shape = SubResource( 1 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
 anims/destroy = SubResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 10, 14, -10, 14, -14, 10, -14, -10, -10, -14, 10, -14, 14, -10, 14, 10 )
