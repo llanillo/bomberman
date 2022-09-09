@@ -20,4 +20,4 @@ func _ready():
 func on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		EventManager.emit_signal("item_pickup", body.player_type, pickup_type)
-		queue_free()
+		call_deferred("queue_free")

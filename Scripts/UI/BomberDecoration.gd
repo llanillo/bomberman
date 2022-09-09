@@ -24,4 +24,4 @@ func _physics_process(delta):
 
 
 func on_bomber_screen_exited() -> void:
-	queue_free()
+	call_deferred("queue_free")

@@ -23,4 +23,4 @@ func on_body_entered(body: Node) -> void:
 		
 
 func on_explosion_timer_timeout() -> void:
-	queue_free()
+	call_deferred("queue_free")

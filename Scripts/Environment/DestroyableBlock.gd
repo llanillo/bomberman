@@ -11,7 +11,7 @@ export (PackedScene) var minibomb_pickup_scene := preload("res://Scenes/Pickups/
 
 
 func _ready():
-	EventManager.connect("sudden_death_start", self, "start_brick_destroy_animation")
+	EventManager.connect("destroy_all_bricks", self, "start_brick_destroy_animation")
 	
 	
 	
@@ -30,7 +30,7 @@ func on_destroy_brick_animation_finish () -> void:
 		elif is_float_in_range(random_value, fire_pickup_chance,  minibomb_pickup_chance):
 			instantiate_pickup(minibomb_pickup_scene)
 			
-	queue_free()
+	call_deferred("queue_free")
 	
 	
 	
