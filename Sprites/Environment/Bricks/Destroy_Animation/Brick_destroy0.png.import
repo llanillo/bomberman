@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Brick_destroy0.png-e75e4a55dbcb4c7bf8e6113d4c9b863d.stex"
+path="res://.import/Brick_destroy0.png-a1deb0c056123e433b86b2f40c85daf5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Environment/Destroy_Animation/Brick_destroy0.png"
-dest_files=[ "res://.import/Brick_destroy0.png-e75e4a55dbcb4c7bf8e6113d4c9b863d.stex" ]
+source_file="res://Sprites/Environment/Bricks/Destroy_Animation/Brick_destroy0.png"
+dest_files=[ "res://.import/Brick_destroy0.png-a1deb0c056123e433b86b2f40c85daf5.stex" ]
 
 [params]
 
