@@ -9,6 +9,7 @@ export (PackedScene) var bomberman_decoration__scene := preload("res://Scenes/UI
 
 
 func _ready():
+	start_button.grab_focus()
 	start_button.connect("pressed", self, "on_start_button_press")
 	spawn_timer.connect("timeout", self, "on_spawn_timer_timeout")
 	spawn_timer.start()
