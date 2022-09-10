@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sprites/Environment/Destroy_Animation/Brick_explosion_sheet.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Environment/Bricks/Destroy_Animation/Brick_explosion_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Environment/DestroyableBlock.gd" type="Script" id=2]
+
 
 [sub_resource type="Animation" id=4]
 length = 0.001

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 0.48
+
+[node name="Node2D" type="Node2D"]
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="WorldEnvironment"]
+modulate = Color( 3, 0, 0, 1 )
+points = PoolVector2Array( 0, 0, 1024, 0 )

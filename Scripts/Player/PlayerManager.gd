@@ -14,7 +14,7 @@ onready var player_animated_sprite := $AnimatedSprite as AnimatedSprite
 export (PackedScene) var bomb_scene : PackedScene
 
 export (PlayerType.Index) var player_type := PlayerType.Index.player0
-export (float) var speed := 3.5
+export (float) var speed := 2.5
 #export (float) var speed := 200
 export (int) var push_strength := 10
 export (float) var max_bomb_duration_time := 2.0

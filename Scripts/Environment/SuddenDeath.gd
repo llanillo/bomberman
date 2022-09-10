@@ -36,10 +36,9 @@ func on_sudden_death_start() -> void:
 func on_wall_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		EventManager.emit_signal("player_die", body.player_type)	
+	
 	if body.is_in_group("Bomb") or body.is_in_group("Items"):
-		print("objeto")
-		body.call_deferred("queue_free")
-
+		body.init_bomb_explosion()
 
 
 func on_move_timer_timeout() -> void:
