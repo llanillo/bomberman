@@ -5,7 +5,7 @@ class_name Bomb
 var direction_array := [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT] as Array
 
 export (PackedScene) var explosion_scene : PackedScene
-export (float) var explosion_duration := 0.5
+#export (float) var explosion_duration := 1
 
 var bomb_duration_time : float
 var explosion_range : int
@@ -19,6 +19,7 @@ onready var area2d_collision_shape := $Area2D/CollisionShape2D as CollisionShape
 
 
 func _ready():
+	AudioManager.play_place_bomb()
 	area2d.connect("body_exited", self, "on_body_exited")	
 	animation_player.play("bomb")
 	
@@ -37,7 +38,7 @@ func init_bomb_explosion() -> void:
 
 func on_body_exited(body: Node) -> void:	
 	if body.is_in_group("Player"):
-		area2d_collision_shape.call_deferred("queue_free")
+		area2d_collision_shape.set_deferred("disabled", true)
 		rigidbody_collision_shape.set_deferred("disabled", false)
 	
 	
@@ -64,5 +65,5 @@ func instantiate_explosion_line(position: Vector2, direction: Vector2) -> void:
 func instantiate_explosion(position) -> void:	
 	var explosion_instance = explosion_scene.instance()
 	explosion_instance.global_position = position	
-	explosion_instance.explosion_duration_time = explosion_duration
+#	explosion_instance.explosion_duration_time = explosion_duration
 	get_tree().root.call_deferred("add_child", explosion_instance)	
