@@ -1,28 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Bomb/Bomb.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Bomb/Explosion.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/Bomb/Bomb.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Bomb/Bomb_Sheet.png" type="Texture" id=3]
 
 [sub_resource type="PhysicsMaterial" id=5]
 bounce = 0.2
-
-[sub_resource type="Shader" id=7]
-code = "shader_type canvas_item;
-
-uniform vec4 flash_color : hint_color = vec4(1.0);
-uniform float flash_modifier : hint_range(0.0, 1.0) = 0.0;
-
-void fragment(){
-	vec4 color = texture(TEXTURE, UV);
-	color.rgb = mix(color.rgb, flash_color.rgb, flash_modifier);
-	COLOR = color;
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
-shader_param/flash_color = Color( 1, 1, 1, 1 )
-shader_param/flash_modifier = 1.0
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 13, 13 )
@@ -44,35 +27,47 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 1.0 ]
 }
-
-[sub_resource type="Animation" id=6]
-resource_name = "bomb"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.5, 0.0, 0.5, 0.0, 0.5, 0.0 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "bomb"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "init_bomb_explosion"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0 ]
 }
 
 [node name="Bomb" type="RigidBody2D" groups=["Bomb"]]
@@ -89,13 +84,11 @@ script = ExtResource( 1 )
 explosion_scene = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 8 )
-position = Vector2( -1, -3 )
-scale = Vector2( 1.125, 1.28571 )
+scale = Vector2( 1.4, 1.4 )
 texture = ExtResource( 3 )
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 3 )
 disabled = true
 
