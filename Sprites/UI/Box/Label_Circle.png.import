@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Explosion.png-29013749f4f95b7ca589f7cab1bf5b44.stex"
+path="res://.import/Label_Circle.png-e867f5a530fb3b75d83de8e9669c619d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Bomb/Explosion.png"
-dest_files=[ "res://.import/Explosion.png-29013749f4f95b7ca589f7cab1bf5b44.stex" ]
+source_file="res://Sprites/UI/Box/Label_Circle.png"
+dest_files=[ "res://.import/Label_Circle.png-e867f5a530fb3b75d83de8e9669c619d.stex" ]
 
 [params]
 
@@ -30,6 +30,6 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
-size_limit=100
+size_limit=0
 detect_3d=false
 svg/scale=1.0

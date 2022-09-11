@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MiniBomb.png-e64690727e2a6c8c9c7311f8cade2724.stex"
+path="res://.import/Light_Sand.png-ecf0921ccb1adac981dd503c214ad358.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pickups/MiniBomb.png"
-dest_files=[ "res://.import/MiniBomb.png-e64690727e2a6c8c9c7311f8cade2724.stex" ]
+source_file="res://Sprites/Environment/Background/Light_Sand.png"
+dest_files=[ "res://.import/Light_Sand.png-ecf0921ccb1adac981dd503c214ad358.stex" ]
 
 [params]
 

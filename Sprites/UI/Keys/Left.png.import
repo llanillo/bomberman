@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MiniBomb.png-e64690727e2a6c8c9c7311f8cade2724.stex"
+path="res://.import/Left.png-f9927578c0a10e08dc62a999b2869cce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pickups/MiniBomb.png"
-dest_files=[ "res://.import/MiniBomb.png-e64690727e2a6c8c9c7311f8cade2724.stex" ]
+source_file="res://Sprites/UI/Keys/Left.png"
+dest_files=[ "res://.import/Left.png-f9927578c0a10e08dc62a999b2869cce.stex" ]
 
 [params]
 
