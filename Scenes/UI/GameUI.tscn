@@ -1,15 +1,21 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Fonts/ARCADE_I.TTF" type="DynamicFontData" id=1]
-[ext_resource path="res://Sprites/UI/Label_Box.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Bomb/Bomb.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/UI/Keys/W.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/ARCADE_N.TTF" type="DynamicFontData" id=4]
-[ext_resource path="res://Sprites/Bomb/Explosion.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UI/W.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/UI/A.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UI/S.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UI/D.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/UI/Keys/Left.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/Keys/Up.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/Keys/Down.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/Keys/Right.png" type="Texture" id=9]
 [ext_resource path="res://Scripts/UI/GameUI.gd" type="Script" id=10]
+[ext_resource path="res://Sprites/UI/Box/Label_Box.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/UI/Keys/A.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UI/Keys/S.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/UI/Keys/D.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/UI/Keys/Space.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/UI/Keys/Control.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Pickups/Fire_item.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Pickups/MiniBomb.png" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -32,13 +38,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="VBox" type="VBoxContainer" parent="Player1"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="PlayerLabel" type="Label" parent="Player1/VBox"]
+[node name="Label" type="Label" parent="Player1"]
 margin_right = 208.0
-margin_bottom = 196.0
+margin_bottom = 207.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
@@ -50,119 +52,97 @@ valign = 1
 autowrap = true
 uppercase = true
 
-[node name="KeysContainer" type="MarginContainer" parent="Player1/VBox"]
-margin_top = 200.0
+[node name="Keys" type="GridContainer" parent="Player1"]
+margin_left = 24.0
+margin_top = 207.0
+margin_right = 128.0
+margin_bottom = 311.0
+rect_scale = Vector2( 1.5, 1.5 )
+columns = 3
+
+[node name="Empty" type="TextureRect" parent="Player1/Keys"]
+margin_right = 32.0
+margin_bottom = 32.0
+
+[node name="W" type="TextureRect" parent="Player1/Keys"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Empty2" type="TextureRect" parent="Player1/Keys"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+
+[node name="A" type="TextureRect" parent="Player1/Keys"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 68.0
+texture = ExtResource( 12 )
+stretch_mode = 1
+
+[node name="S" type="TextureRect" parent="Player1/Keys"]
+margin_left = 36.0
+margin_top = 36.0
+margin_right = 68.0
+margin_bottom = 68.0
+texture = ExtResource( 13 )
+stretch_mode = 1
+
+[node name="D" type="TextureRect" parent="Player1/Keys"]
+margin_left = 72.0
+margin_top = 36.0
+margin_right = 104.0
+margin_bottom = 68.0
+texture = ExtResource( 14 )
+stretch_mode = 1
+
+[node name="Empty3" type="TextureRect" parent="Player1/Keys"]
+margin_top = 72.0
+margin_right = 32.0
+margin_bottom = 104.0
+
+[node name="Space" type="TextureRect" parent="Player1/Keys"]
+margin_left = 36.0
+margin_top = 72.0
+margin_right = 68.0
+margin_bottom = 104.0
+texture = ExtResource( 15 )
+stretch_mode = 1
+
+[node name="Fire" type="MarginContainer" parent="Player1"]
+margin_top = 384.0
 margin_right = 208.0
-margin_bottom = 330.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-
-[node name="Keys" type="HBoxContainer" parent="Player1/VBox/KeysContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 188.0
-margin_bottom = 110.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
-custom_constants/separation = 1
-alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_top = 50
-
-[node name="A" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/MarginContainer"]
-margin_top = 50.0
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_left = 56.0
-margin_right = 111.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 10
-
-[node name="W" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/VBoxContainer"]
-margin_right = 55.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-expand = true
-
-[node name="S" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/VBoxContainer"]
-margin_top = 50.0
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 8 )
-expand = true
-
-[node name="MarginContainer2" type="MarginContainer" parent="Player1/VBox/KeysContainer/Keys"]
-margin_left = 112.0
-margin_right = 168.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_top = 50
-
-[node name="D" type="TextureRect" parent="Player1/VBox/KeysContainer/Keys/MarginContainer2"]
-margin_top = 50.0
-margin_right = 56.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 9 )
-expand = true
-
-[node name="Fire" type="MarginContainer" parent="Player1/VBox"]
-margin_top = 334.0
-margin_right = 208.0
-margin_bottom = 465.0
+margin_bottom = 524.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 custom_constants/margin_right = 40
-custom_constants/margin_top = 110
+custom_constants/margin_top = 50
 custom_constants/margin_left = 40
-custom_constants/margin_bottom = -20
+custom_constants/margin_bottom = 40
 
-[node name="GrayArea" type="NinePatchRect" parent="Player1/VBox/Fire"]
+[node name="GrayArea" type="NinePatchRect" parent="Player1/Fire"]
 margin_left = 40.0
-margin_top = 110.0
+margin_top = 50.0
 margin_right = 168.0
-margin_bottom = 151.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 11 )
 
-[node name="Texture" type="TextureRect" parent="Player1/VBox/Fire/GrayArea"]
+[node name="Texture" type="TextureRect" parent="Player1/Fire/GrayArea"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -44.5
-margin_right = 64.0
-margin_bottom = 48.5
-texture = ExtResource( 5 )
+margin_top = -35.0
+margin_right = 56.0
+margin_bottom = 29.0
+texture = ExtResource( 17 )
 expand = true
 
-[node name="Count" type="Label" parent="Player1/VBox/Fire/GrayArea"]
+[node name="Count" type="Label" parent="Player1/Fire/GrayArea"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -177,10 +157,10 @@ align = 1
 valign = 1
 autowrap = true
 
-[node name="Bomb" type="MarginContainer" parent="Player1/VBox"]
-margin_top = 469.0
+[node name="Bomb" type="MarginContainer" parent="Player1"]
+margin_top = 456.0
 margin_right = 208.0
-margin_bottom = 600.0
+margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
@@ -189,26 +169,26 @@ custom_constants/margin_top = 50
 custom_constants/margin_left = 40
 custom_constants/margin_bottom = 40
 
-[node name="GrayArea" type="NinePatchRect" parent="Player1/VBox/Bomb"]
+[node name="GrayArea" type="NinePatchRect" parent="Player1/Bomb"]
 margin_left = 40.0
 margin_top = 50.0
 margin_right = 168.0
-margin_bottom = 91.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 11 )
 
-[node name="Texture" type="TextureRect" parent="Player1/VBox/Bomb/GrayArea"]
+[node name="Texture" type="TextureRect" parent="Player1/Bomb/GrayArea"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -46.5
-margin_right = 58.0
-margin_bottom = 33.5
-texture = ExtResource( 3 )
+margin_left = -16.0
+margin_top = -43.0
+margin_right = 64.0
+margin_bottom = 40.0
+texture = ExtResource( 18 )
 expand = true
 
-[node name="Count" type="Label" parent="Player1/VBox/Bomb/GrayArea"]
+[node name="Count" type="Label" parent="Player1/Bomb/GrayArea"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -232,13 +212,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="VBox" type="VBoxContainer" parent="Player2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="PlayerLabel" type="Label" parent="Player2/VBox"]
+[node name="Label" type="Label" parent="Player2"]
 margin_right = 208.0
-margin_bottom = 196.0
+margin_bottom = 207.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
@@ -250,119 +226,97 @@ valign = 1
 autowrap = true
 uppercase = true
 
-[node name="KeysContainer" type="MarginContainer" parent="Player2/VBox"]
-margin_top = 200.0
-margin_right = 208.0
-margin_bottom = 330.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+[node name="Keys" type="GridContainer" parent="Player2"]
+margin_left = 24.0
+margin_top = 207.0
+margin_right = 128.0
+margin_bottom = 311.0
+rect_scale = Vector2( 1.5, 1.5 )
+columns = 3
 
-[node name="Keys" type="HBoxContainer" parent="Player2/VBox/KeysContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 188.0
-margin_bottom = 110.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
-custom_constants/separation = 1
-alignment = 1
+[node name="Empty" type="TextureRect" parent="Player2/Keys"]
+margin_right = 32.0
+margin_bottom = 32.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Player2/VBox/KeysContainer/Keys"]
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_top = 50
-
-[node name="A" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/MarginContainer"]
-margin_top = 50.0
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Up" type="TextureRect" parent="Player2/Keys"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
 texture = ExtResource( 7 )
-expand = true
+stretch_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player2/VBox/KeysContainer/Keys"]
-margin_left = 56.0
-margin_right = 111.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 10
+[node name="Empty2" type="TextureRect" parent="Player2/Keys"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
 
-[node name="W" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/VBoxContainer"]
-margin_right = 55.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Left" type="TextureRect" parent="Player2/Keys"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 68.0
 texture = ExtResource( 6 )
-expand = true
+stretch_mode = 1
 
-[node name="S" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/VBoxContainer"]
-margin_top = 50.0
-margin_right = 55.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Down" type="TextureRect" parent="Player2/Keys"]
+margin_left = 36.0
+margin_top = 36.0
+margin_right = 68.0
+margin_bottom = 68.0
 texture = ExtResource( 8 )
-expand = true
+stretch_mode = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Player2/VBox/KeysContainer/Keys"]
-margin_left = 112.0
-margin_right = 168.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_top = 50
-
-[node name="D" type="TextureRect" parent="Player2/VBox/KeysContainer/Keys/MarginContainer2"]
-margin_top = 50.0
-margin_right = 56.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Right" type="TextureRect" parent="Player2/Keys"]
+margin_left = 72.0
+margin_top = 36.0
+margin_right = 104.0
+margin_bottom = 68.0
 texture = ExtResource( 9 )
-expand = true
+stretch_mode = 1
 
-[node name="Fire" type="MarginContainer" parent="Player2/VBox"]
-margin_top = 334.0
+[node name="Empty3" type="TextureRect" parent="Player2/Keys"]
+margin_top = 72.0
+margin_right = 32.0
+margin_bottom = 104.0
+
+[node name="Ctrl" type="TextureRect" parent="Player2/Keys"]
+margin_left = 36.0
+margin_top = 72.0
+margin_right = 68.0
+margin_bottom = 104.0
+texture = ExtResource( 16 )
+stretch_mode = 1
+
+[node name="Fire" type="MarginContainer" parent="Player2"]
+margin_top = 384.0
 margin_right = 208.0
-margin_bottom = 465.0
+margin_bottom = 524.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 custom_constants/margin_right = 40
-custom_constants/margin_top = 110
+custom_constants/margin_top = 50
 custom_constants/margin_left = 40
-custom_constants/margin_bottom = -20
+custom_constants/margin_bottom = 40
 
-[node name="GrayArea" type="NinePatchRect" parent="Player2/VBox/Fire"]
+[node name="GrayArea" type="NinePatchRect" parent="Player2/Fire"]
 margin_left = 40.0
-margin_top = 110.0
+margin_top = 50.0
 margin_right = 168.0
-margin_bottom = 151.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 11 )
 
-[node name="Texture" type="TextureRect" parent="Player2/VBox/Fire/GrayArea"]
+[node name="Texture" type="TextureRect" parent="Player2/Fire/GrayArea"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -44.5
-margin_right = 64.0
-margin_bottom = 48.5
-texture = ExtResource( 5 )
+margin_top = -35.0
+margin_right = 56.0
+margin_bottom = 29.0
+texture = ExtResource( 17 )
 expand = true
 
-[node name="Count" type="Label" parent="Player2/VBox/Fire/GrayArea"]
+[node name="Count" type="Label" parent="Player2/Fire/GrayArea"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -377,10 +331,10 @@ align = 1
 valign = 1
 autowrap = true
 
-[node name="Bomb" type="MarginContainer" parent="Player2/VBox"]
-margin_top = 469.0
+[node name="Bomb" type="MarginContainer" parent="Player2"]
+margin_top = 456.0
 margin_right = 208.0
-margin_bottom = 600.0
+margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
@@ -389,26 +343,26 @@ custom_constants/margin_top = 50
 custom_constants/margin_left = 40
 custom_constants/margin_bottom = 40
 
-[node name="GrayArea" type="NinePatchRect" parent="Player2/VBox/Bomb"]
+[node name="GrayArea" type="NinePatchRect" parent="Player2/Bomb"]
 margin_left = 40.0
 margin_top = 50.0
 margin_right = 168.0
-margin_bottom = 91.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 11 )
 
-[node name="Texture" type="TextureRect" parent="Player2/VBox/Bomb/GrayArea"]
+[node name="Texture" type="TextureRect" parent="Player2/Bomb/GrayArea"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -46.5
-margin_right = 58.0
-margin_bottom = 33.5
-texture = ExtResource( 3 )
+margin_left = -16.0
+margin_top = -43.0
+margin_right = 64.0
+margin_bottom = 40.0
+texture = ExtResource( 18 )
 expand = true
 
-[node name="Count" type="Label" parent="Player2/VBox/Bomb/GrayArea"]
+[node name="Count" type="Label" parent="Player2/Bomb/GrayArea"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
