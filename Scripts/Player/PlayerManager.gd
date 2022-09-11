@@ -11,12 +11,14 @@ onready var player_label := $Label as Label
 onready var player_animation := $AnimationPlayer as AnimationPlayer
 onready var player_animated_sprite := $AnimatedSprite as AnimatedSprite
 
+#onready var rays := [$TopRay, $DownRay, $LeftRay, $RightRay]
+
 export (PackedScene) var bomb_scene : PackedScene
 
 export (PlayerType.Index) var player_type := PlayerType.Index.player0
-export (float) var speed := 2.5
-#export (float) var speed := 200
-export (int) var push_strength := 10
+#export (float) var speed := 2.5
+export (float) var speed := 200
+export (int) var push_strength := 15
 export (float) var max_bomb_duration_time := 2.0
 
 var max_bomb_amount := 1
@@ -24,6 +26,7 @@ var current_velocity : Vector2
 var current_bomb_count : int
 var current_bomb_range : int
 var current_bomb_duration_time : float
+var current_speed
 
 
 func _ready():	
@@ -44,6 +47,7 @@ func _ready():
 	current_bomb_count = max_bomb_amount
 	current_bomb_duration_time = max_bomb_duration_time
 	current_bomb_range = 1
+	current_speed = speed
 	
 	
 	
@@ -61,6 +65,15 @@ func set_label_color(color: Color) -> void:
 func hide_label()-> void:
 	player_label.visible = false
 	
+
+func reduce_speed(in_player_type: int, amount: float) -> void:
+	if in_player_type != player_type: return
+	current_speed = speed * (1 - amount)
+	
+func recover_speed(in_player_type: int) -> void:
+	if in_player_type != player_type: return
+	current_speed = speed
+	
 	
 	
 func _process(delta):
@@ -73,23 +86,27 @@ func _physics_process(delta):
 	if !GameStatus.can_play : return
 	
 	current_velocity = player_input.get_player_move_input()
-#	current_velocity = move_and_slide(current_velocity * speed, UpVector, false, 4, PI/4, false)
-	var collision_info = move_and_collide(current_velocity * speed, false)
-	if collision_info:
-#		current_velocity = (collision_info.normal.tangent() + collision_info.remainder) * speed
-		
-		if collision_info.collider.is_in_group("Bomb"):
-				collision_info.collider.apply_central_impulse(-collision_info.normal * push_strength)
-				
-
-
+	current_velocity = move_and_slide(current_velocity * current_speed, UpVector, false, 4, PI/4, false)
+	on_player_collision_with_bomb(get_slide_count())
+#	var collision_info = move_and_collide(current_velocity * speed, false)
+#	if collision_info:
+##		current_velocity = (collision_info.normal.tangent() + collision_info.remainder) * speed
+#
+#		if collision_info.collider.is_in_group("Bomb"):
+#				collision_info.collider.apply_central_impulse(-collision_info.normal * push_strength)
+#
 
 func handle_player_animation() -> void:
 #	if current_velocity == Vector2.ZERO:
 #		player_animated_sprite.stop()
 #	else:
 		player_animated_sprite.play()
-		
+
+#		if current_velocity != Vector2.ZERO:
+#			AudioManager.play_step()					
+#		elif AudioManager.step_sound.playing:			
+#			AudioManager.stop_step()
+#
 		if current_velocity.x != 0:
 			player_animated_sprite.set_animation("Horizontal")
 			
@@ -106,20 +123,20 @@ func handle_player_animation() -> void:
 		
 		
 		
-#func on_player_collision_with_bomb(collision_count: int) -> void:
-#	for index in collision_count:
-#		var collision = get_slide_collision(index)
-#
-#		if collision.collider.is_in_group("Bomb"):
-#			collision.collider.apply_central_impulse(-collision.normal * push_strength)
-#
+func on_player_collision_with_bomb(collision_count: int) -> void:
+	for index in collision_count:
+		var collision = get_slide_collision(index)
+
+		if collision.collider.is_in_group("Bomb"):
+			collision.collider.apply_central_impulse(-collision.normal * push_strength)
+
 
 
 func on_player_attack(in_player_type) -> void:	
 	if !GameStatus.can_play : return
 	if player_type != in_player_type: return
 	if current_bomb_count <= 0: return
-	if is_there_already_a_bomb_in_position(global_position) : return
+	if !can_place_bomb(global_position) : return
 			
 	player_attack.place_bomb(current_bomb_duration_time, current_bomb_range, global_position, player_type)
 	current_bomb_count -= 1
@@ -139,6 +156,8 @@ func on_bomb_exploted(in_player_type) -> void:
 func on_pickup_item(in_player_type: int, in_pickup_type : int) -> void:
 	if player_type != in_player_type: return
 	
+	AudioManager.item_pickup_sound.play()
+	
 	match in_pickup_type:		
 		0: # Fire items, increase explosion range
 			if current_bomb_range >= GameManager.MaximumBombRange: return
@@ -153,7 +172,7 @@ func on_pickup_item(in_player_type: int, in_pickup_type : int) -> void:
 
 
 
-func is_there_already_a_bomb_in_position(position: Vector2) -> bool:
+func can_place_bomb(position: Vector2) -> bool:
 	var objects_in_position := get_world_2d().direct_space_state.intersect_point(
 		PositionUtil.snap_position_to_grid(global_position), 5, [], 0x7FFFFFFF, true, true)
 		
@@ -161,7 +180,13 @@ func is_there_already_a_bomb_in_position(position: Vector2) -> bool:
 		for object_collisiion in objects_in_position:
 			var object = object_collisiion.collider
 			
+			# Cant place is there a bomb there
 			if object.is_in_group("Bomb"):
-				return true
+				return false
 				
-	return false
+			# Cant place is there is a player there
+			if object.is_in_group("Player"):
+				if object.player_type != player_type:
+					return false
+				
+	return true
