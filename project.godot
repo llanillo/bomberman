@@ -78,6 +78,7 @@ EventManager="*res://Scripts/System/EventManager.gd"
 SceneChanger="*res://Scenes/UI/SceneChanger.tscn"
 GameStatus="*res://Scripts/System/GameStatus.gd"
 PlayerStyle="*res://Scripts/System/PlayerStyle.gd"
+AudioManager="*res://Scenes/Sytem/AudioManager.tscn"
 
 [display]
 

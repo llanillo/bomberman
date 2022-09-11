@@ -9,6 +9,7 @@ const MaximumBombRange := 6
 #const TileMapBrickindex := 0
 
 onready var bricks_tile_map := $BricksTileMap
+onready var ground_tile_map := $GroundTileMap
 onready var game_ui := $GameUI
 onready var game_timer := $GameTimer as Timer
 onready var timer_label := $TimerLabel as Label
@@ -17,10 +18,12 @@ onready var player2 := $Player1
 
 export (PackedScene) var game_over_ui_scene := preload("res://Scenes/UI/GameOverUI.tscn")
 
-
-export (Dictionary) var tiles_scenes := {
-	0: preload("res://Scenes/Environment/UndestructibleBrick.tscn"),
-	1: preload("res://Scenes/Environment/DestructibleBrick.tscn")}
+export (Dictionary) var bricks_tiles_scenes := {
+	0: preload("res://Scenes/Environment/DestructibleBrick.tscn"),
+	1: preload("res://Scenes/Environment/UndestructibleBrick.tscn")}
+export (Dictionary) var ground_tiles_scenes := {
+	3: preload("res://Scenes/Environment/DarkSand.tscn"),
+	4: preload("res://Scenes/Environment/LightSand.tscn")}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +33,7 @@ func _ready():
 	timer_label.add_color_override("font_color", Color(randf(), randf(), randf()))
 	game_timer.connect("timeout", self, "restart_game")
 	game_timer.start()
-	
+
 	# Set colors according to players
 	var player1_color := PlayerStyle.get_player1_color()
 	var player2_color := PlayerStyle.get_player2_color()
@@ -42,7 +45,8 @@ func _ready():
 	player2.set_sprite_frame(PlayerStyle.get_player2_sprite_frame())
 
 #	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes # TODO TEST if removing still works
-	replace_tiles_with_scene_objects(bricks_tile_map, tiles_scenes)
+	replace_tiles_with_scene_objects(ground_tile_map, ground_tiles_scenes)
+	replace_tiles_with_scene_objects(bricks_tile_map, bricks_tiles_scenes)
 
 
 
@@ -68,12 +72,15 @@ func show_game_over(losing_player: int) -> void:
 	add_child(game_over_ui_instance)
 	game_over_ui_instance.set_winner_label_text(winner_player, winner_color)
 	GameStatus.can_play = false
+	AudioManager.main_theme.stop()
+	AudioManager.victory_theme.play()
 	
 
 
 func restart_game() -> void:
 	# Allows player movements
 	GameStatus.can_play = true
+	AudioManager.main_theme.play()
 	
 	# Initial player canvas values
 	game_ui.update_player_items(1, 1, 0)
@@ -90,8 +97,9 @@ func restart_game() -> void:
 	
 	timer_label.visible = false
 	GameStatus.sudden_death_started = true
+	AudioManager.main_theme.stop()
+	AudioManager.sudden_death_theme.play()
 	EventManager.emit_signal("sudden_death_start")
-
 
 
 
