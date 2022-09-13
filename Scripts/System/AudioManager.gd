@@ -12,9 +12,19 @@ func play_step() -> void:
 	if !step_sound.playing:
 		step_sound.play()
 
+func stop_sudden_death() -> void:
+	if sudden_death_theme.is_playing():
+		sudden_death_theme.stop()
+		
+		
+func stop_main_theme() -> void:
+	if main_theme.is_playing():
+		main_theme.stop()
+		
+		
 func stop_step() -> void:
-	step_sound.stop()
-
+	if step_sound.is_playing():
+		step_sound.stop()
 
 func play_exposion() -> void:
 	if explosion_audio.playing == false:
