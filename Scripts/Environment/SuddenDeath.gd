@@ -15,7 +15,6 @@ func _ready():
 	EventManager.connect("sudden_death_start", self, "on_sudden_death_start")
 	assign_signal_to_walls(walls_array)
 	move_timer.connect("timeout", self, "on_move_timer_timeout")
-	animation_player.play("glow")
 	
 	
 	
@@ -55,6 +54,7 @@ func move_walls() -> void:
 
 func on_sudden_death_start() -> void:
 	move_timer.start()
+	animation_player.play("glow")
 	
 	
 func on_wall_body_entered(body: Node) -> void:
