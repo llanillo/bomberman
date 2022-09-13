@@ -20,7 +20,7 @@ func start_brick_destroy_animation() -> void:
 	
 
 
-func on_destroy_brick_animation_finish () -> void:
+func on_destroy_brick_animation_finish () -> void:	
 	if !GameStatus.sudden_death_started:
 		randomize()
 		var random_value := randf()
