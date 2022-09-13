@@ -3,7 +3,7 @@ extends Node2D
 class_name GameManager
 
 const TileSize := 32
-const TimeBeforeSuddenDeath := 35
+const TimeBeforeSuddenDeath := 30
 const MaximumBombs := 5
 const MaximumBombRange := 6
 #const TileMapBrickindex := 0
@@ -12,9 +12,12 @@ onready var bricks_tile_map := $BricksTileMap
 onready var ground_tile_map := $GroundTileMap
 onready var game_ui := $GameUI
 onready var game_timer := $GameTimer as Timer
+onready var sudden_timer :=  $SuddenTimer as Timer
 onready var timer_label := $TimerLabel as Label
 onready var player1 := $Player0
 onready var player2 := $Player1
+
+var change_label = false
 
 export (PackedScene) var game_over_ui_scene := preload("res://Scenes/UI/GameOverUI.tscn")
 
@@ -29,8 +32,10 @@ export (Dictionary) var ground_tiles_scenes := {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventManager.connect("player_die", self, "show_game_over")
+	EventManager.connect("destroy_all_bricks", self, "start_sudden_death_music")
 	PlayerStyle.set_player_random_style()
 	timer_label.add_color_override("font_color", Color(randf(), randf(), randf()))
+	sudden_timer.connect("timeout", self, "sudden_death_init")
 	game_timer.connect("timeout", self, "restart_game")
 	game_timer.start()
 
@@ -51,7 +56,15 @@ func _ready():
 
 
 func _process(delta):
-	timer_label.text = (str(int(game_timer.time_left + 1)))
+	if change_label:
+		timer_label.text = (str(int(sudden_timer.time_left + 1)))
+	else:
+		timer_label.text = (str(int(game_timer.time_left + 1)))
+	
+
+func start_sudden_death_music() -> void:
+	AudioManager.main_theme.stop()
+	AudioManager.sudden_death_theme.play()
 	
 	
 	
@@ -72,7 +85,9 @@ func show_game_over(losing_player: int) -> void:
 	add_child(game_over_ui_instance)
 	game_over_ui_instance.set_winner_label_text(winner_player, winner_color)
 	GameStatus.can_play = false
-	AudioManager.main_theme.stop()
+	GameStatus.sudden_death_started = false
+	AudioManager.stop_main_theme()
+	AudioManager.stop_sudden_death()
 	AudioManager.victory_theme.play()
 	
 
@@ -80,6 +95,7 @@ func show_game_over(losing_player: int) -> void:
 func restart_game() -> void:
 	# Allows player movements
 	GameStatus.can_play = true
+	GameStatus.sudden_death_started = false
 	AudioManager.main_theme.play()
 	
 	# Initial player canvas values
@@ -90,16 +106,19 @@ func restart_game() -> void:
 	player1.hide_label()
 	player2.hide_label()
 	
-	# Starts sudden death timer
-	game_timer.disconnect("timeout", self, "restart_game")
-	game_timer.start(TimeBeforeSuddenDeath)
-	yield(game_timer, "timeout")
+	# Changes timer label
+	change_label = true
 	
+	# Starts sudden death timer
+	sudden_timer.start(TimeBeforeSuddenDeath)
+	
+	
+func sudden_death_init() -> void:
 	timer_label.visible = false
+	game_ui.start_sudden_death()
 	GameStatus.sudden_death_started = true
-	AudioManager.main_theme.stop()
-	AudioManager.sudden_death_theme.play()
 	EventManager.emit_signal("sudden_death_start")
+#	EventManager.emit_signal("destroy_all_bricks")
 
 
 

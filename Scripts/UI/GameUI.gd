@@ -5,6 +5,8 @@ onready var player1_bomb_count := $Player1/Bomb/GrayArea/Count as Label
 onready var player1_fire_count := $Player1/Fire/GrayArea/Count as Label
 onready var player1_label := $Player1/Label as Label
 onready var player1_panel := $Player1 as Panel
+onready var death_label := $Label
+onready var animation_player:= $AnimationPlayer
 
 # Player 2 related canvas
 onready var player2_bomb_count := $Player2/Bomb/GrayArea/Count as Label
@@ -16,8 +18,11 @@ onready var player2_panel := $Player2 as Panel
 
 func _ready():
 	EventManager.connect("update_item_canvas", self, "update_player_items")
+	death_label.visible = false
 	
-	
+func start_sudden_death() -> void:
+	death_label.visible = true
+	animation_player.play("blink")
 	
 func update_player_items(bomb_amount: int, bomb_range: int, player_type: int) -> void:
 	match player_type:
