@@ -185,9 +185,9 @@ text = "3"
 align = 1
 valign = 1
 
-[node name="SuddenTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="GameTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
+
+[node name="SuddenTimer" type="Timer" parent="."]
 one_shot = true
