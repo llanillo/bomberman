@@ -49,7 +49,7 @@ func _ready():
 	player1.set_sprite_frame(PlayerStyle.get_player1_sprite_frame())
 	player2.set_sprite_frame(PlayerStyle.get_player2_sprite_frame())
 
-#	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes # TODO TEST if removing still works
+	yield(get_tree(), "idle_frame") # Neccesary to avoid TileMap crashes
 	replace_tiles_with_scene_objects(ground_tile_map, ground_tiles_scenes)
 	replace_tiles_with_scene_objects(bricks_tile_map, bricks_tiles_scenes)
 
