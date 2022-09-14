@@ -14,19 +14,19 @@ script = ExtResource( 8 )
 
 [node name="Explosion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-volume_db = -40.0
+volume_db = -30.0
 
 [node name="SuddenDeathTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-volume_db = -50.0
+volume_db = -40.0
 
 [node name="MainTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -50.0
+volume_db = -40.0
 
 [node name="VictoryTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -55.0
+volume_db = -45.0
 
 [node name="Step" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -34,8 +34,8 @@ volume_db = -40.0
 
 [node name="Placebomb" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -40.0
+volume_db = -30.0
 
 [node name="ItemPickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-volume_db = -50.0
+volume_db = -40.0

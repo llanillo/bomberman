@@ -20,7 +20,11 @@ func stop_sudden_death() -> void:
 func stop_main_theme() -> void:
 	if main_theme.is_playing():
 		main_theme.stop()
-		
+
+func stop_victory_theme() -> void:
+	if victory_theme.is_playing():
+		victory_theme.stop()
+				
 		
 func stop_step() -> void:
 	if step_sound.is_playing():

@@ -33,11 +33,13 @@ func set_winner_label_text(winner: int, new_color : Color) -> void:
 
 
 func on_home_button_pressed() -> void:
+	AudioManager.stop_victory_theme()
 	SceneChanger.load_main_menu()
 	
 
 
 func on_restart_button_pressed() -> void:
+	AudioManager.stop_victory_theme()
 	SceneChanger.switch_to_next_level(true)
 
 
