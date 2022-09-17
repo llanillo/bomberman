@@ -8,11 +8,13 @@ onready var walls_array := [$TopWall, $DownWall, $RightWall, $LeftWall]
 onready var lines_array := [$TopWall/TopLine, $DownWall/DownLine, $RightWall/RightLine, $LeftWall/LeftLine]
 onready var animation_player := $AnimationPlayer
 onready var move_timer := $MoveTimer
+onready var hold_timer := $HoldTimer
 
 var current_step_count := 0
 
 func _ready():
 	EventManager.connect("sudden_death_start", self, "on_sudden_death_start")
+	hold_timer.connect("timeout",self,"on_hold_timer_timeout")
 	assign_signal_to_walls(walls_array)
 	move_timer.connect("timeout", self, "on_move_timer_timeout")
 	
@@ -41,20 +43,17 @@ func move_walls() -> void:
 			lines_array[index2].set_point_position(0, lines_array[index2].get_point_position(0) + direction1)
 			lines_array[index2].set_point_position(1, lines_array[index2].get_point_position(1) + direction2)
 		
-#		lines_array[1].set_point_position(0, lines_array[1].get_point_position(0) + Vector2(5, 0))
-#		lines_array[1].set_point_position(1, lines_array[1].get_point_position(1) + Vector2(-5, 0))
-#
-#		lines_array[2].set_point_position(0, lines_array[2].get_point_position(0) + Vector2(0, 5))
-#		lines_array[2].set_point_position(1, lines_array[2].get_point_position(1) + Vector2(0, -5))
-#
-#		lines_array[3].set_point_position(0, lines_array[3].get_point_position(0) + Vector2(0, 5))
-#		lines_array[3].set_point_position(1, lines_array[3].get_point_position(1) + Vector2(0, -5))
 
 
 
 func on_sudden_death_start() -> void:
-	move_timer.start()
+	hold_timer.start()
+#	move_timer.start()
 	animation_player.play("glow")
+	
+func on_hold_timer_timeout() -> void:
+	EventManager.emit_signal("hide_death_label")
+	move_timer.start()
 	
 	
 func on_wall_body_entered(body: Node) -> void:

@@ -3,7 +3,7 @@ extends Node2D
 class_name GameManager
 
 const TileSize := 32
-const TimeBeforeSuddenDeath := 30
+const TimeBeforeSuddenDeath := 25
 const MaximumBombs := 5
 const MaximumBombRange := 6
 #const TileMapBrickindex := 0
@@ -32,7 +32,7 @@ export (Dictionary) var ground_tiles_scenes := {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventManager.connect("player_die", self, "show_game_over")
-	EventManager.connect("destroy_all_bricks", self, "start_sudden_death_music")
+	EventManager.connect("hide_death_label", self, "start_sudden_death_warning")
 	PlayerStyle.set_player_random_style()
 	timer_label.add_color_override("font_color", Color(randf(), randf(), randf()))
 	sudden_timer.connect("timeout", self, "sudden_death_init")
@@ -61,12 +61,6 @@ func _process(delta):
 	else:
 		timer_label.text = (str(int(game_timer.time_left + 1)))
 	
-
-func start_sudden_death_music() -> void:
-	AudioManager.main_theme.stop()
-	AudioManager.sudden_death_theme.play()
-	
-	
 	
 func show_game_over(losing_player: int) -> void:
 	if !GameStatus.can_play: return
@@ -86,9 +80,7 @@ func show_game_over(losing_player: int) -> void:
 	game_over_ui_instance.set_winner_label_text(winner_player, winner_color)
 	GameStatus.can_play = false
 	GameStatus.sudden_death_started = false
-	AudioManager.stop_main_theme()
-	AudioManager.stop_sudden_death()
-	AudioManager.victory_theme.play()
+
 	
 
 
@@ -114,26 +106,22 @@ func restart_game() -> void:
 	
 	
 func sudden_death_init() -> void:
-	timer_label.visible = false
-	game_ui.start_sudden_death()
-	GameStatus.sudden_death_started = true
-	EventManager.emit_signal("sudden_death_start")
-#	EventManager.emit_signal("destroy_all_bricks")
+	if GameStatus.can_play == true:
+		timer_label.visible = false
+		game_ui.start_sudden_death()
+		GameStatus.sudden_death_started = true
+		EventManager.emit_signal("sudden_death_start")
+		AudioManager.stop_main_theme()
+		AudioManager.play_warning_sound()
+	#	EventManager.emit_signal("destroy_all_bricks")
 
 
-
-# TODO : Add to ready function
-#func set_random_color_to_player(player) -> void:
-#	var colors_to_choose = PlayerStyle.player_colors
-#	var sprite_frames_to_choose = PlayerStyle.players_sprite_frames
-#	var first_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), -1)
-#	var second_number = NumberUtil.get_random_number_in_range(0, colors_to_choose.size(), first_number)
-#	player0_color = colors_to_choose[first_number]
-#	player1_color = colors_to_choose[second_number]
-#	player0_sprite_frame = sprite_frames_to_choose[first_number]
-#	player1_sprite_frame = sprite_frames_to_choose[second_number]
-#
-
+func start_sudden_death_warning() -> void:
+	AudioManager.main_theme.stop()
+	AudioManager.sudden_death_theme.play()
+	game_ui.set_death_label_visibility(false)
+	
+	
 
 func replace_tiles_with_scene_objects(tile_map: TileMap, scenes_dicitionary: Dictionary) -> void:
 	for tile_pos in tile_map.get_used_cells():
