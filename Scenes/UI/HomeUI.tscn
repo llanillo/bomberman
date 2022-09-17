@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/ARCADE_R.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/ARCADE_N.TTF" type="DynamicFontData" id=2]
@@ -17,6 +17,22 @@ font_data = ExtResource( 1 )
 size = 20
 outline_color = Color( 1, 0, 0, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Home" type="Control"]
 anchor_right = 1.0
@@ -492,3 +508,14 @@ texture = ExtResource( 8 )
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 712.0
+margin_top = 528.0
+margin_right = 755.0
+margin_bottom = 567.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "X"
+icon_align = 1
