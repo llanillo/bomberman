@@ -9,6 +9,10 @@ onready var cooldown_timer := $CooldownTimer as Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AudioManager.stop_warning_sound()	
+	AudioManager.stop_main_theme()
+	AudioManager.stop_sudden_death()
+	AudioManager.victory_theme.play()
 	home_button.connect("pressed", self, "on_home_button_pressed")
 	restart_button.connect("pressed", self, "on_restart_button_pressed")
 	cooldown_timer.connect("timeout", self, "on_cooldown_timer_timeout")
@@ -33,13 +37,19 @@ func set_winner_label_text(winner: int, new_color : Color) -> void:
 
 
 func on_home_button_pressed() -> void:
+	AudioManager.stop_warning_sound()	
 	AudioManager.stop_victory_theme()
+	AudioManager.stop_sudden_death()
+	AudioManager.stop_main_theme()
 	SceneChanger.load_main_menu()
 	
 
 
 func on_restart_button_pressed() -> void:
+	AudioManager.stop_warning_sound()
 	AudioManager.stop_victory_theme()
+	AudioManager.stop_sudden_death()
+	AudioManager.stop_main_theme()
 	SceneChanger.switch_to_next_level(true)
 
 

@@ -5,7 +5,7 @@ onready var player1_bomb_count := $Player1/Bomb/GrayArea/Count as Label
 onready var player1_fire_count := $Player1/Fire/GrayArea/Count as Label
 onready var player1_label := $Player1/Label as Label
 onready var player1_panel := $Player1 as Panel
-onready var death_label := $Label
+onready var death_label := $SuddenDeathLabel
 onready var animation_player:= $AnimationPlayer
 
 # Player 2 related canvas
@@ -44,3 +44,8 @@ func set_player_canvas_colors(player_type: int, new_color: Color) -> void:
 		1:
 			player2_label.add_color_override("font_color", new_color)
 			player2_panel.set_self_modulate(new_color)
+
+
+
+func set_death_label_visibility(value: bool):
+	death_label.visible=value
