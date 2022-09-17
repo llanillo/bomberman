@@ -155,8 +155,7 @@ func on_bomb_exploted(in_player_type) -> void:
 
 func on_pickup_item(in_player_type: int, in_pickup_type : int) -> void:
 	if player_type != in_player_type: return
-	
-	AudioManager.item_pickup_sound.play()
+
 	
 	match in_pickup_type:		
 		0: # Fire items, increase explosion range
