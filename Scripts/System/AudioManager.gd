@@ -7,6 +7,7 @@ onready var victory_theme := $VictoryTheme
 onready var step_sound := $Step as AudioStreamPlayer
 onready var place_bomb_sound := $Placebomb
 onready var item_pickup_sound := $ItemPickup
+onready var warning_sound := $Warning
 
 func play_step() -> void:
 	if !step_sound.playing:
@@ -16,7 +17,6 @@ func stop_sudden_death() -> void:
 	if sudden_death_theme.is_playing():
 		sudden_death_theme.stop()
 		
-		
 func stop_main_theme() -> void:
 	if main_theme.is_playing():
 		main_theme.stop()
@@ -25,6 +25,10 @@ func stop_victory_theme() -> void:
 	if victory_theme.is_playing():
 		victory_theme.stop()
 				
+func stop_warning_sound() -> void:
+	if warning_sound.is_playing():
+		warning_sound.stop()
+		
 		
 func stop_step() -> void:
 	if step_sound.is_playing():
@@ -41,3 +45,7 @@ func play_place_bomb() -> void:
 func play_item_pickup()-> void:
 	if item_pickup_sound.playing == false:
 		item_pickup_sound.play()
+		
+func play_warning_sound():
+	if !warning_sound.playing:
+		warning_sound.play()
