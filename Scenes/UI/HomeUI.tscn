@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/ARCADE_R.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/ARCADE_N.TTF" type="DynamicFontData" id=2]
@@ -17,6 +17,31 @@ font_data = ExtResource( 1 )
 size = 20
 outline_color = Color( 1, 0, 0, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="CSharpScript" id=5]
+resource_name = "IndestructibleBrick8"
+script/source = "using Godot;
+using System;
+
+public class IndestructibleBrick8 : Sprite
+{
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = \"text\";
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
+
+//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+//  public override void _Process(float delta)
+//  {
+//      
+//  }
+}
+"
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
@@ -144,6 +169,7 @@ texture = ExtResource( 8 )
 position = Vector2( 224, 504 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
+script = SubResource( 5 )
 
 [node name="IndestructibleBrick9" type="Sprite" parent="Walls"]
 position = Vector2( 32, 440 )

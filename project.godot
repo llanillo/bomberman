@@ -177,6 +177,10 @@ player0_attack={
 2d_navigation/layer_4="Enemy"
 2d_navigation/layer_5="item"
 
+[mono]
+
+project/assembly_name="Bomberman"
+
 [physics]
 
 common/enable_pause_aware_picking=true
