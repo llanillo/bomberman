@@ -24,7 +24,7 @@ func _ready():
 	animation_player.play("bomb")
 	
 
-
+ 
 func init_bomb_explosion() -> void:
 	EventManager.emit_signal("bomb_exploted", player_type)
 

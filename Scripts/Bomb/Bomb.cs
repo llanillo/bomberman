@@ -1,44 +1,62 @@
 using System;
+using Godot.Collections;
 
 namespace Bomberman.Bomb;
 
-public class Bomb : Node
+public class Bomb : RigidBody2D
 {
     private const string BombAnimation = "Bomb";
-    
-    [Export] public PackedScene ExplosionScene { get; private set; }
-    
-    private readonly Vector2[] _directions = { Vector2.Up, Vector2.Down, Vector2.Left, Vector2.Right, };
 
-    private AudioManager AudioManager { get; set; }
+    private readonly Vector2[] _explosionDirections = { Vector2.Up, Vector2.Down, Vector2.Left, Vector2.Right };
+
+
     private float _durationTime;
     private int _explosionRange;
+    private PlayerIndex _playerIndex;
 
-    private AnimationPlayer _animationPlayer;
-    private Area2D _area2D;
-    
-    private CollisionShape2D _rigidbodyCollision;
-    private CollisionShape2D _area2DCollision;
-    
+    [Export] public PackedScene ExplosionScene { get; private set; }
+
+    private EventManager EventManager { get; set; }
+    private AudioManager AudioManager { get; set; }
+    private AnimationPlayer AnimationPlayer { get; set; }
+    private Area2D Area2D { get; set; }
+    private CollisionShape2D RigidbodyCollision { get; set; }
+    private CollisionShape2D Area2DCollision { get; set; }
+
     public override void _Ready()
     {
-        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer") ??
-                           throw new ArgumentNullException(nameof(_animationPlayer));
-        _area2D = GetNode<Area2D>("Area2D") ?? throw new ArgumentNullException(nameof(_area2D));
-        _rigidbodyCollision = GetNode<CollisionShape2D>("CollisionShape2D") ??
-                              throw new ArgumentNullException(nameof(_rigidbodyCollision));
-        _area2DCollision = GetNode<CollisionShape2D>("Area2D/CollisionShape2D") ??
-                           throw new ArgumentNullException(nameof(_area2DCollision));
-        
+        EventManager = GetNode<EventManager>("root/EventManager") ??
+                       throw new ArgumentNullException(nameof(EventManager));
+        AudioManager = GetNode<AudioManager>("root/AudioManager") ??
+                       throw new ArgumentNullException(nameof(AudioManager));
+        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer") ??
+                          throw new ArgumentNullException(nameof(AnimationPlayer));
+        Area2D = GetNode<Area2D>("Area2D") ?? throw new ArgumentNullException(nameof(Area2D));
+        RigidbodyCollision = GetNode<CollisionShape2D>("CollisionShape2D") ??
+                             throw new ArgumentNullException(nameof(RigidbodyCollision));
+        Area2DCollision = GetNode<CollisionShape2D>("Area2D/CollisionShape2D") ??
+                          throw new ArgumentNullException(nameof(Area2DCollision));
+
         AudioManager.PlayBombDropSound();
-        _area2D.Connect(BodyExited, this, nameof(OnBodyExited));
-        _animationPlayer.Play();
+        Area2D.Connect(BodyExited, this, nameof(OnBodyExited));
+        AnimationPlayer.Play(BombAnimation);
     }
 
-    private void InstantiateExplosion(Vector2 position)
+    public void InitBombExplosion()
+    {
+        EventManager.EmitSignal(nameof(EventManager.BombExplosion), _playerIndex);
+        SpawnExplosion(GlobalPosition); // Spawn  the middle bomb
+        
+        // Spawns explosions in cross
+        foreach(var direction in _explosionDirections)
+        {
+            SpawnExplosionLine(GlobalPosition, direction);
+        }
+    }
+    
+    private void SpawnExplosion(Vector2 position)
     {
         if (ExplosionScene.Instance() is not Explosion explosionInstance) return;
-
         explosionInstance.GlobalPosition = position;
         GetTree().Root.CallDeferred(AddChildren, explosionInstance);
     }
@@ -49,29 +67,33 @@ public class Bomb : Node
         {
             position += direction * GameManager.TileSize;
 
-            var tilesInPosition = Physics2DServer.SpaceGetDirectState().IntersectPoint(position, 1);
-            
-            if(!tilk)
+            var tilesInPosition = GetWorld2d().DirectSpaceState.IntersectPoint(position, 1);
+
+            if (tilesInPosition.Count > 0)
+            {
+                if (((Dictionary)tilesInPosition[0])[Collider] is not Brick brickInPosition) return;
+                if (brickInPosition.IsInGroup(IndestructibleBrickGroup)) return;
+                if (brickInPosition.IsInGroup(DestructibleBrickGroup)) brickInPosition.InitDestroy();
+            }
+
+            SpawnExplosion(position);
         }
     }
 
     private void OnBodyExited(Node body)
     {
         if (!body.IsInGroup(PlayerGroup)) return;
-        
+
         var isPlayerInArea = false;
-            
-        foreach(var objectInArea in _area2D.GetOverlappingBodies())
+
+        foreach (var objectInArea in Area2D.GetOverlappingBodies())
         {
             var nodeInArea = (Node)objectInArea;
-            if (nodeInArea.IsInGroup(PlayerGroup))
-            {
-                isPlayerInArea = true;
-            }
+            if (nodeInArea.IsInGroup(PlayerGroup)) isPlayerInArea = true;
         }
 
         if (isPlayerInArea) return;
-        _area2DCollision.SetDeferred(Disabled, true);       
-        _rigidbodyCollision.SetDeferred(Disabled, false);
+        Area2DCollision.SetDeferred(Disabled, true);
+        RigidbodyCollision.SetDeferred(Disabled, false);
     }
 }
