@@ -1,7 +1,6 @@
-using Godot;
-using System;
+namespace  Bomberman.UI;
 
-public class GameUI : Node
+public class GameUi : Node
 {
     // Declare member variables here. Examples:
     // private int a = 2;
