@@ -9,7 +9,6 @@ public class Bomb : RigidBody2D
 
     private readonly Vector2[] _explosionDirections = { Vector2.Up, Vector2.Down, Vector2.Left, Vector2.Right };
 
-
     private float _durationTime;
     private int _explosionRange;
     private PlayerIndex _playerIndex;
@@ -42,7 +41,7 @@ public class Bomb : RigidBody2D
         AnimationPlayer.Play(BombAnimation);
     }
 
-    public void InitBombExplosion()
+    public void InitExplosion()
     {
         EventManager.EmitSignal(nameof(EventManager.BombExplosion), _playerIndex);
         SpawnExplosion(GlobalPosition); // Spawn  the middle bomb
