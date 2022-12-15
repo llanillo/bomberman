@@ -1,5 +1,6 @@
 ﻿global using static Bomberman.Utils.PropertyUtil;
 global using static Bomberman.Utils.SignalUtil;
+global using static Bomberman.Utils.GroupUtil;
 global using Bomberman.System;
 global using Bomberman.Environment;
 global using Bomberman.Pickups;
