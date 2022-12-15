@@ -1,17 +1,15 @@
-﻿using Bomberman.Player;
-
-namespace Bomberman.System
+﻿namespace Bomberman.System
 {
-    public class EventManager
+    public class EventManager : Node
     {
         [Signal]
-        public delegate void BombExplosion(PlayerType playerType);
+        public delegate void BombExplosion(PlayerIndex playerType);
 
         [Signal]
-        public delegate void PlayerDie(PlayerType playerType);
+        public delegate void PlayerDie(PlayerIndex playerType);
 
         [Signal]
-        public delegate void ItemPickup(PlayerType playerType, ItemType itemType);
+        public delegate void ItemPickup(PlayerIndex playerType, ItemType itemType);
 
         [Signal]
         public delegate void SuddenDeathStart();
