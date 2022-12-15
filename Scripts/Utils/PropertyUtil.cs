@@ -2,8 +2,6 @@
 
 public static class PropertyUtil
 {
-    public const string PlayerGroup = "Player";
-    
     public const string DestructibleBrickGroup = "DBrick";
     public const string IndestructibleBrickGroup = "UBrick";
     
