@@ -1,4 +1,4 @@
-﻿namespace Bomberman.Scripts.Pickups;
+﻿namespace Bomberman.Pickups;
 
 public enum ItemType : uint
 {
